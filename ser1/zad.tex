@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza praca domowa}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 1} 
+Niech $A = \{(x, y) \in \mathbb{R}^2 : y = x^2 \}$, zaś $ B = \{(x, y) \in \mathbb{R}^2 : x = y^2 \}$ \newline
+
+1) Wyznacz punkty przeciecia A i B. \newline
+
+Niech $f: \mathbb{R} \rightarrow \mathbb{R} $ i $g: [0, \infty ) \rightarrow \mathbb{R}$ dane wzorami $f(x) = x^2, g(x) = \sqrt{x}$ . \newline 
+
+Zauważmy, że zbiór $ A = \{(x, f(x))$ : $x \in \mathbb{R} \} $ a ponieważ \newline $f \ge 0$ na $\mathbb{R}$ to $A \cap B = A \cap \displaystyle \left(B \cap \{ (x, y) \in \mathbb{R}^2 : y \ge 0 \}\right)$ \newline a tak się składa, że 
+$B \cap \{ (x, y) \in \mathbb{R}^2 : y \ge 0 \} = \{(x, g(x):x \in [0,\infty) \}$, \newline
+czyli nasze zadanie sprowadza się do roziwązania równania $f(x) = g(x)$, dla $x\in [0, \infty)$. \newline 
+Rozwiązania są oczywiście dwa, dla $x = 0$ i $x = 1$.
+Czyli $A \cap B = \{(0, 0), (1, 1) \}$.
+
+2) Wyznacz równania stycznych
+
+Zajmijmy się najpierw zbiorem A. Zbiór ten jest wykresem funkcji różniczkowalnej na $\mathbb{R}$,
+więc policzenie stycznych, będzie proste (mamy współczynniki kierunkowe prostych za darmo z pochodnej). Dla 
+
+
+
+
+\end{document}:
