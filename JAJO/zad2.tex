@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{JAO praca domowa}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 1.2} 
+
+Dla danego alfabetu $A$ oraz języka $L \subseteq A^* $ zdefinujmy SquareLen($L$) jako
+$$\{w \in \{1\}^* | \mbox{ liczba słów długości } |w| \mbox{ w $L$ jest kwadratem liczby naturalnej} \}$$
+Wykaż, że klasa języków regularnych nie jest zamknięta ze względu na operację SquareLen. \newline
+\newline
+Żeby pokazać, że klasa języków regularnych nie jest zamknięta ze względu na operację SquareLen, wystarczy, że znjadziemy język regularny który operacja SquareLen przeprowadzi na język nie-regualrny.
+\newline 
+Niech $A = \{a, b\}$, oraz niech $L \subseteq A^*$ opisane wyrażeniem regularnym $aa^*b^*$. \newline
+Zauważmy, że dla każdego $n > 0$ istnieje dokładnie $n$ słów długości $n$ należących do $L$. \newline
+Niech $L' = $ SquareLen($L$). Do $L'$ należą słowa złożne z samych jedynek o długościach kwadratów kolejnych liczb naturalnych. \newline 
+Wystarczy pokazać, że $L'$ nie jest jeżykiem regularnym. Skorzystajmy, więc z fatu, iż zbiór długości słów języka regularnego, jest semiliniowy. Zbiór $A \subseteq \mathbb{N}$ jest semiliniowy, jeśli $ \exists d,c \in \mathbb{N} $, ($d>0$) takie, że dla $ \forall x \in A$ jeśli $x > c$ to $x+d \in A$. \newline 
+Zbiór długości słów $L'$ nie spełnia tej definicji. \newline 
+Różnica między $n+1$-wszym a $n$-tym elemntem zbioru wynosi $(n+1)^2 - n^2 = 2n+1$, oczywiście więc nie może istnieć, taka stała $c$ (odległości pomiędzy kolejnymi elementami dążą do nieskończoności).
+
+
+
+\end{document}
