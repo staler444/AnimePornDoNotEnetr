@@ -27,12 +27,13 @@ Wykaż, że klasa języków regularnych nie jest zamknięta ze względu na opera
 \newline
 Żeby pokazać, że klasa języków regularnych nie jest zamknięta ze względu na operację SquareLen, wystarczy, że znjadziemy język regularny który operacja SquareLen przeprowadzi na język nie-regualrny.
 \newline 
-Niech $A = \{a, b\}$, oraz niech $L \subseteq A^*$ opisane wyrażeniem regularnym $aa^*b^*$. \newline
+Niech $A = \{a, b\}$, oraz niech $L \subseteq A^*$ opisany wyrażeniem regularnym $aa^*b^*$. \newline
 Zauważmy, że dla każdego $n > 0$ istnieje dokładnie $n$ słów długości $n$ należących do $L$. \newline
 Niech $L' = $ SquareLen($L$). Do $L'$ należą słowa złożne z samych jedynek o długościach kwadratów kolejnych liczb naturalnych. \newline 
-Wystarczy pokazać, że $L'$ nie jest jeżykiem regularnym. Skorzystajmy, więc z fatu, iż zbiór długości słów języka regularnego, jest semiliniowy. Zbiór $A \subseteq \mathbb{N}$ jest semiliniowy, jeśli $ \exists d,c \in \mathbb{N} $, ($d>0$) takie, że dla $ \forall x \in A$ jeśli $x > c$ to $x+d \in A$. \newline 
-Zbiór długości słów $L'$ nie spełnia tej definicji. \newline 
-Różnica między $n+1$-wszym a $n$-tym elemntem zbioru wynosi $(n+1)^2 - n^2 = 2n+1$, oczywiście więc nie może istnieć, taka stała $c$ (odległości pomiędzy kolejnymi elementami dążą do nieskończoności).
+Wystarczy pokazać, że $L'$ nie jest językiem regularnym. Skorzystajmy, więc z Lematu o pompowaniu dla języków regularnych. \newline 
+Załóżmy, że $L'$ jest językiem regularnym. Istnieje więc takie $n_0$, że $ \forall w \in L'$, jeśli $|w| \ge n_0$ to istnieje podział $w$ na podsłowa $x, y, z$ takie, że $$w = xyz$$ $$y \neq \epsilon$$ $$|xy| \le n_0$$ $$\forall k \ge 0, xy^kz \in L$$ \newline
+Weźmy, więc takie $w_1$, że $|w_1| \ge n_0$. Z lematu o pompowaniu wynika, że istnieje takie $c > 0$ ($c = |y|, y$ z lematu), że $\forall k \in \mathbb{N}$ istnieją słowa długości $|w_1| + k*c$ należące do $L'$. \newline Niech $x_k = \sqrt{|w_1| + k*c}$ ($x_k \in \mathbb{N}$ dzięki konstrukcji $L'$). Musi zachodzić 
+$$(x_k+1)^2 - x_k^2 = 2x_k + 1 \le c$$ Różnica kolejnych długości słów z $L'$ musi być nie większa niż $c$, bo istnieje w $L'$ słowo długości $x_k^2 + c$ (z konstrukcji $L'$ wiemy, że jeśli istnieje w $L'$ słowo długości $n^2$ to kolejną liczbą naturalną dla której istnieje w $L'$ słowo mające długość równą niej, jest $(n+1)^2$). Czyli $\forall k \in \mathbb{N}, 2x_k + 1 \le c$. Takie $c$ oczywiście nie istnieje, bo $\lim_{k\to\infty} 2x_k+1 = \infty $. Wnioskujemy nie wprost, że $L'$ nie jest regularne, czyli klasa języków regularnych nie jest zamknięta względem operacji SquareLen.
 
 
 

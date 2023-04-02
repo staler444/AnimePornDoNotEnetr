@@ -1,0 +1,137 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{braket}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{graphs}
+\usetikzlibrary{automata}
+\usetikzlibrary{positioning}
+\usetikzlibrary{quotes}
+
+\title{JAO praca domowa}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 1.1}
+
+Dla danego alfabetu $A$ oraz języka $L \subseteq A^*$ zdefinujmy EvenLen($L$) jako 
+
+$$\{w \in \{1\}^* |\mbox{ liczba słów długości $|w|$ w $L$ jest parzysta} \}$$
+
+Wykaż, że klasa języków regularnych jest zamknięta ze względu na operację EvenLen. \newline
+\newline 
+Niech $L' = $ EvenLen($L$).
+Skorzystajmy z faktu iż regularność języka, jest równoważna istnieniu NFA rozpoznającego dany język. Pokażemy, że korzystając z istnienia NFA dla $L$ jesteśmy w stanie skonstruować NFA rozpoznający $L'$. \newline 
+\newline 
+$L$ regularny, więc istnieje NFA rozpoznający go. Niech $A$ będzie takim automatem o stanach $q_1, q_2, q_3, ... q_n$. Bez staraty ogólności załóżmy, że stan $q_1$ jest stanem początkowym. Konstruujemy graf pomocniczy w następujący sposób: \newline
+Będziemy konstruwać go indukcjnie, dokładając kolejne warstwy.
+Zaczynamy od pierwszej warstwy zawierającej wierzchołki $q_{1,0}, q_{2,0}, ..., q_{n,0}$
+Wierzchołek $q_{i,j} = $ wierzchołek odpowiadający $i$-temu wierzchołkowi z $A$ leżący na $j$-tej warstwie. \newline 
+Krawędzie istnieją tylko pomiędzy sąsiednimi warstwami. Dokładając $k+1$-pierwszą warstwę, jeśli w $A$ istnieje krawędź z $q_i$ do $q_j$ to w grafie dodajemy krawędź z $q_{i,k}$ do $q_{j,k+1}$.
+
+Każdemu wierzchołkowi przypisujemy wartościowanie, 0 lub 1. Jeśli wierzchołek $q_{i, j}$ ma wartościowanie 0, to znaczy, że możemy do niego dojść z wierzchołka $q_{1, 0}$ na parzyście wiele sposobów, w przeciwnym razie na nieparzyście. \newline
+Dla pierwszej warstwy wierzchołek $q_{1,0}$ ma wartościowanie 1, cała reszta 0. Dla kolejnych warstw wartościowanie wierzchołka to suma wartościowań wierzchołków do niego wchodzących $\%2$. \newline
+Dodatkowo niech wierzchołek $q_{i,j}$ będzie wierzchołkiem wyróżnionym, jeśli w $A$ wierzchołek $q_i$ był wierzchołkiem akceptującym. \newline \newline
+
+Zauważmy, że posiadając taki graf łatwo sprawdzić czy słowo o długości $l$ należy do $L'$. Weźmy (sumę wartościowań wierzchołków wyróżnionych na warstwie $l$)$ \% 2$. Jeśli ta jest równa 1 to znaczy, że $A$ akceptował nieparzyście wiele słów długości $l$, czyli słowo długości $l$ nie należy do $L'$, (w przeciwnym wypadtku akceptował parzyście wiele czyli należy do $L'$). \newline \newline
+
+Nasz graf ma kilka ważnych własności: \newline Połączenie pomiędzy kolejnymi warstwami są takie same, jeśli istnieje krawędź z $q_{i,k}$ do $q_{j,k+1}$ to istnieje bliźniacza z $q_{i,k+1}$ do $q_{j,k+2}$. \newline Jedyne krawędzie wychodzące z $k$-tej warstwy, biegną do $k+1$-rwszej warstwy. \newline 
+Czyli wartościowanie $k+1$-rwszej warstwy zależy tylko i wyłącznie od wartościowania $k$-tej, co więcej jeśli warstwy $k_1$ i $k_2$ mają takie same wartościowania, to warstwy $k_1+1$ i $k_2+1$ też będą miały takie same wartościowania. \newline 
+Wszystkich możliwych wartościowań jest co najwyżej $2^n$, bo $A$ miał $n$-stanów, czyli każda warstwa ma $n$ wierzchołków, a każdy wierzchołek ma 2 możliwe wartościowania. \newline 
+Czyli po wyliczeniu co najwyżej $2^n$ warstw, wartościowania się zacyklą a tylko od nich zależy czy słowo danej długości jest akceptowane. \newline \newline 
+Możemy więc już bez trudo skonstruować automat rozpoznający $L'$. \newline \newline 
+Zaczynamy kładac wierzchołek początkowy odpowiadający pierwszej warstwie, (Według naszej definicji nie jest on akceptujący, ale jeśli chcemy, żeby automat akceptował puste słowo możemy ręcznie go na akceptujący ustawić). Teraz wykonujemy następujący algorytm. Jeśli kolejna warstwa ma wartościowanie którego jeszcze nie napotkaliśmy, to dokładamy kolejny stan, dodajemy krawędź od poprzedniego stanu do nowego, i jeśli suma wyróżnionch wierzchołków na warstwie $\%2 = 0$ to nowy stan jest akceptujący. \newline 
+Jeśli napotkaliśmy już dane wartościowanie, to nie dodajemy nowego stanu, tylko dokładamy krawędź od stanu aktualnego do stanu odpowiadającemu warstwie z tym powtórzonym wartościowaniem. Powstaje nam cykl i kończymy algorytm. \newline Po skończonej liczbie kroków algorytm się zakończy czyli nasz skonstruowany automat, będzie skończony, niedeterministyczny i będzie rozpoznawał $L'$. \newline 
+Wnioskujemy, że $L'$ musi być regularne, czyli klasa języków regularnych faktycznie jest zamknięta ze względu na operację EvenLen. \newline \newline
+Mały przykład: \newline 
+
+Automat $A$
+
+
+\begin{center}
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+            \node (q_1) [state, initial] at (3,0) {$q_1$};
+            \node (q_2) [state, accepting] at (5,0) {$q_2$};
+            \path[->] (q_1) edge node {a} (q_2)
+	    (q_1) edge [loop above] node {b} ()
+	    (q_2) edge [bend left] node {b} (q_1);
+        \end{tikzpicture}
+\end{center}
+
+Graf pomocniczy 
+
+\begin{center}
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+		\node (q_10) [state] at (3,0) {$q_{1,0}$};
+		\node (q_20) [state, accepting] at (5,0) {$q_{2,0}$};
+		\node (q_11) [state] at (3,-2) {$q_{1,1}$};
+		\node (q_21) [state, accepting] at (5,-2) {$q_{2,1}$};
+		\node (q_12) [state] at (3,-4) {$q_{1,2}$};
+		\node (q_22) [state, accepting] at (5,-4) {$q_{2,2}$};
+		\node (q_13) [state] at (3,-6) {$q_{1,3}$};
+		\node (q_23) [state, accepting] at (5,-6) {$q_{2,3}$};
+		\node[draw=none] at (8, 0.75) {Wartościowanie:};
+		\node[draw=none] at (7.75, 0) {1, 0};
+		\node[draw=none] at (7.75, -2) {1, 1};
+		\node[draw=none] at (7.75, -4) {0, 1};
+		\node[draw=none] at (7.75, -6) {\shortstack{1, 0 \\ pierwsze powtórzenie}};
+
+
+		\node[state, draw=none] (q_14) at (3,-8) {$\cdots$};
+		\node[state, draw=none] (q_24) at (5,-8) {$\cdots$};
+            \path[->] 	(q_10) edge node {} (q_21)
+	    		(q_10) edge node {} (q_11)
+	    		(q_20) edge node {} (q_11)
+
+			(q_11) edge node {} (q_22)
+	    		(q_11) edge node {} (q_12)
+	    		(q_21) edge node {} (q_12)
+
+			(q_12) edge node {} (q_23)
+	    		(q_12) edge node {} (q_13)
+	    		(q_22) edge node {} (q_13)
+
+			(q_13) edge node {} (q_24)
+	    		(q_13) edge node {} (q_14)
+	    		(q_23) edge node {} (q_14);
+        \end{tikzpicture}
+\end{center}
+
+Skonstruowany automat \newline
+
+\begin{center}
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+            \node (q_1) [state, initial] at (3,0) {$1,0$};
+            \node (q_2) [state, accepting] at (5,0) {$1,1$};
+	    \node (q_3) [state] at (7,0) {$0,1$};
+	    \path[->] (q_1) edge node {} (q_2)
+		(q_2) edge node {} (q_3)
+		(q_3) edge [bend left] node {}(q_1);
+        \end{tikzpicture}
+\end{center}
+
+
+
+\end{document}
