@@ -21,4 +21,48 @@
 
 \section*{Zadanie 1} 
 
+\section{Pole wyszukiwania}
+
+Pole wyszukiwania będzie reprezentowane przez <input type="search" id="search" name="q"> wysokości 46px i szerokości co najwyżej 600px (szerokość jest dostosowywana do szerokości ekranu). Jest ono zawsze wycentrowane z użyciem automatycznych marginesów z lewej i prawej strony.
+
+Po naciśnięciu przycisku ENTER, użytkownik zostanie przeniesiony pod adres /search?q=<szukana fraza>\&p=1, gdzie <szukana fraza> jest wartością pola wyszukiwania.
+
+\section{Strona główna}
+
+Po środku ekranu (horyzontalnie i wertykalnie) znajduje się Pole wyszukiwania.
+
+\section{Wyniki wyszukiwania}
+
+\subsection{Lista wyników}
+
+Wyniki wyszukiwania zostaną zaprezentowane w kolejności opisanej w wymaganiach funkcjonalnych.
+
+Poniżej Pola wyszukiwania znajdować się będzie lista wyników: <table id="results">. W sekcji <thead> znajdować się jeden wiersz z nagłówkami kolumn <th> kolejno: Nazwa, Postać, Dawka, Substancja czynna, Zawartość opakowania.
+
+[@TODO: powiązanie nagłówków i SQL]
+
+Wiersz zawierający lek w pierwszej kolumnie będzie miał nazwę w tagu <a>. Będzie on prowadził do strony Wybór choroby (/selection/<ean>), jeśli istnieją różne poziomy odpłatności danego leku. W przeciwnym przypadku atrybut href będzie prowadził do Strony leku (/<id>).
+
+\subsection{Nawigacja stron z wynikami}
+
+[@COMMENT: zmodyfikowana wersja z wymagań funkcjonalnych]
+
+Poniżej Listy wyników znajduje się Nawigacja stron z wynikami.
+
+Jeżeli liczba wyników wygenerowana przez algorytm wyszukiwania przekroczy 50, to system ograniczy się do pokazania co najwyżej 150 pierwszych wyników, po co najwyżej 50 wyników na każdej stronie. Początkowa strona będzie zwierała wyniki 1 - 50, następna wyniki 51 - 100, następna wyniki 101 - 150 (jeżeli takowe będą). Na raz wyświetlana jest jedna strona. Numery wyświetlanych wyników będą widoczne na dole strony po środku.
+
+Gdy użytkownik znajduje się na innej stronie niż początkowa, z wynikami o numerach od 50x + 1 do min(liczba wszystkich wyników, 50(x + 1)), na dole po lewej stronie będzie wyświetlony przycisk ,,Poprzednia'', po naciśnięciu którego zostanie przeniesiony na stronę z wynikami o numerach od 50(x - 1) + 1 do 50x. Zostanie przeniesiony na stronę o parametrze p w adresie URL o jeden mniejszym.
+
+Gdy użytkownik znajduje się na innej stronie niż ostatnia, z wynikami o numerach od 50x + 1 do 50(x + 1), na dole po prawej stronie będzie wyświetlony przycisk ,,Następna'', po naciśnięciu którego zostanie przeniesiony na stronę z wynikami o numerach od 50(x + 1) + 1 do min(liczba wszystkich wyników, 50(x + 2)). Zostanie przeniesiony na stronę o parametrze p w adresie URL o jeden większym.
+
+\section{Wybór choroby}
+
+\subsection{Informacje o leku}
+
+Poniżej Pola wyszukiwania znajduje się nazwa, postać, dawka, substancja czynna i zawartość opakowania leku w tagu <h1>.
+
+\subsubsection{Lista chorób}
+
+Poniżej Informacji o leku znajduje się tabelka <table id="druglist">
+
 \end{document}:

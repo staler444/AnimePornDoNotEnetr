@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.4in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{JAO praca domowa}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 2.2} 
+
+$$ L_{\forall} = \{ab^{n_1}ab^{n_2} \dots ab^{n_{k}}a \in \{a, b\}^* \; | \; \forall i \in \mathbb{N}.\; 1 \le i \le k \implies n_i = k\}$$
+
+\subsection*{Lemat 1}
+Jeśli $w'$ jest podsłowem jakiegoś słowa z $L_{\forall}$, oraz $w'$ zawiera conajmniej dwie litery $a$, to istnieje dokładnie jedno słowo $w \in L_{\forall}$, takie, że $w'$ jest podsłowem $w$. \newline \newline
+Zauważmy, że istnieje bardzo prosta biekcjia pomiędzy zbiorem $L_{\forall}$ a zbiorem liczb naturalnych ($0 \in \mathbb{N}$).
+Każde słowo z $L_{\forall}$, ma strukturę $a(b^ka)^k$ ($a$ dla $k=0$), czyli każde słowo z $L_{\forall}$ możemy utożsamiać z jakimś $k \in \mathbb{N}$, i dla każdego $k$ potrafimy wygenerować słowo z $L_{\forall}$. Teraz dla danego $w'$, jeśli zawiera ono przynajmniej dwie litery $a$, możemy odczytać $k$ licząc wystąpienia liter $b$ pomiędzy dwoma kolejnymi literami $a$. Znając $k$ potrafimy wskazać $w \in L_{\forall}$, którego $w'$ jest podsłowem.
+
+\subsection*{Rozwiązanie}
+Załóżmy, że $L_{\forall}$ jest językiem bezkontekstowym. \newline 
+$L_{\forall}$ spełnia założenia 'Lematu o pompowaniu dla języków bezkontekstowych'. \newline 
+Niech $N \in \mathbb{N}$ stałą z tego lematu. \newline
+Niech $K \in \mathbb{N}, K=max(42, N)$ oraz niech $w$ będzie słowem z $L_{\forall}$ wyznaczonym przez $K$, $w=a(b^Ka)^K$.\newline 
+Z lematu $w$ posiada faktoryzację: 
+$$w = prefix  \cdot left \cdot infix \cdot right \cdot suffix$$
+o następujących własnościach:
+
+\begin{itemize}
+	\item[$1^*$] słowo $left \cdot right$ jest niepuste,
+	\item[$2^*$] słowo $left \cdot infix \cdot right$ ma długość co najwyżej $N$,
+	\item[$3^*$] dla każdej liczby $l \ge 0$, słowo $w_l = prefix \cdot left^l \cdot infix \cdot right^l \cdot suffix$ należy do języka $L_{\forall}$.
+\end{itemize}
+
+Bez straty ogólności załóżmy, że $|prefix| \ge |suffix|$. \newline
+Zachodzi: 
+$$ |w| = K \cdot (K+1) + 1, $$
+$$|prefix \cdot suffix| \ge_{2^*} K \cdot K + 1 \; \mbox{}$$
+oraz
+$$|prefix| \ge K \cdot K/2 \ge K \cdot 21 \ge K + 2$$
+Teraz skoro $prefix$ zaczyna się od $a$ oraz ma długośc przynajmniej $K+2$, to zawiera przynajmniej dwie litery $a$ (wnioskujemy to ze struktury $w$), czyli spełnia założenia Lematu 1. \newline 
+Niech:
+$$w_2 = prefix \cdot left^2 \cdot infix \cdot right^2 \cdot suffix,$$
+Zachodzi:
+$$w_2 \in L_{\forall} \mbox{ z } 3^*, \mbox{ oraz}$$ 
+$$|w_2| > |w| \mbox{ bo z } 1^* \; |left \cdot right| > 0, \mbox{ czyli } |left^2 \cdot right^2| > |left \cdot right|$$
+
+Skoro $w, w_2 \in L_{\forall}$ posiadają takie samo podsłowo $prefix$ które spełnia Lemat 1, to zachodzi $w = w_2$,
+czyli $|w| = |w_2|$. \newline \newline
+Otrzymujemy sprzeczność:
+$$ |w| > |w_2| \land |w| = |w_2|,$$
+czyli $L_{\forall}$ nie jest językiem bezkontekstowym.
+\end{document}

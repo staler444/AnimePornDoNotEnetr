@@ -1,0 +1,157 @@
+\documentclass{article}
+\vskip -1ex
+
+\usepackage[parfill]{parskip}
+\usepackage{multicol}
+\usepackage{graphicx}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\urlstyle{same}
+
+\title{\textbf{Architektura aplikacji}}
+
+\begin{document}
+\maketitle
+
+\section{Serwer}
+
+\subsection{Technologie dotyczące części aplikacyjnej}
+
+Serwer aplikacji zostanie napisany w języku Rust z użyciem technologii Axum. Będzie udostępniał endpointy, do których będą mogły być wysyłane zapytania REST API. Serwer będzie pośrednikiem pomiędzy użytkownikiem a bazą danych i będzie jedynym miejscem, z którego będą mogły być wykonywane zapytania bezpośrednio na bazie danych.
+
+\subsection{Technologie dotyczące komunikacji z bazą danych}
+
+Komunikacja zostanie zrealizowana z użyciem biblioteki SQLx. Zapytania będą konstruowane w języku SQL, a potem importowane jako argumenty odpowiednich funkcji lub makr.
+
+\subsection{Udostępnione endpointy}
+Dokumentacja api udostępnianego przez serwer znajduje się pod tym \href{https://fuchczyk.github.io/io-swagger/}{linkiem}.
+\iffalse
+%%
+Ilekroć w dokumentacji endpointów jest mowa o obiekcie reprezentującym lek (lub leku) to mamy na myśli następującą strukturę:
+\begin{minted}[frame=single,
+               framesep=3mm,
+               xleftmargin=21pt,
+               tabsize=4]{js}
+{
+    "id" : Number, // Integer
+    "name": String,
+    "substance" : String,
+    "content": String,
+    "ean": String,
+    "selling_price": Number, // Number with two decimal places.
+    "wholesale_price": Number, // Number with two decimal places.
+    "retail_price": Number // Number with two decimal places.
+}
+\end{minted}
+
+\textbf{Endpoint}: \verb|/search| \\
+\textbf{Opis}: Wyszukiwanie leku w bazie danych. \\
+W polu \textit{phrase} należy przesłać wpisaną frazę wyszukiwania.
+\begin{multicols}{2}
+\begin{minted}[escapeinside=||]{js}
+{ // Request data.
+    "Phrase": String
+}
+\end{minted}\breakd
+\begin{minted}[escapeinside=||]{js}
+{ // Response data.
+    "Result": Array<Lek>
+}
+\end{minted}
+\end{multicols}
+
+\textbf{Endpoint}: \verb|/equivalents/life| \\
+\textbf{Opis}: Wyznaczanie odpowiedników w terapii długotrwałej.
+
+\textbf{Endpoint}: \verb|/equivalents/single| \\
+\textbf{Opis}: Wyznaczanie odpowiedników w terapii krótkotrwałej.
+
+\textbf{Endpoint}: \verb|/drug/payment| \\
+\textbf{Opis}: Sprawdzanie możliwych poziomów odpłatności.
+
+%\textbf{Endpoint}: \verb|/drug/diseases| \\
+%\textbf{Opis}: Sprawdzenie możliwych zakresów wskazań chorobowych.
+%%
+\fi
+\section{Interfejs użytkownika}
+
+Interfejs użytkownika zostanie stworzony z użyciem HTML5, CSS3 oraz JavaScript. Strony opisane w specyfikacji (to znaczy Strona Główna, Wybór Choroby, Lista wyników) to będą strony z odpowiednimi wartościami metody GET. Ściślej, będą zgodne z następującym GUI:
+\begin{itemize}
+    \item 'GET /' - kod HTML strony głównej.
+    \item 'GET /search?q=<fraza>$\&$p=<strona>'- kod HTML na zapytanie przekazane w parametrze 'q' i numerze strony przekazanym w parametrze 'p'.
+    \item 'GET /selection/<ean>' - strona z wyborem poziomu refundacji odpowiadająca produktowi o kodzie EAN '<ean>'.
+    \item 'GET /<id>' - strona z dokładnymi informacjami o leku i jego odpowiednikach (po wyborze poziomu refundacji) odpowiadająca produktowi, któremu zostało przypisane `<id>` wewnątrz
+\end{itemize}
+
+% Część aplikacji odpowiedzialna za interaktywność zostanie utworzona przy pomocy frameworka React.
+
+\subsection{Strona główna}
+% \begin{center}
+%     \includegraphics[width=0.7\textwidth]{site/strona_glowna.png}
+% \end{center}
+Użytkownik będzie wpisywał do etykiety <input type='search'> (znajdującego się na środku strony) wyrażenie do wyszukiwania.
+Po kliknięciu przycisku ENTER będzie wysyłane zapytanie do serwera na adres '/api/search'. Wynikiem będzie posortowana lista leków na podstawie algorytmu opisanego w 
+\href{https://github.com/KamilloP/IO/blob/main/algos_io.png}{specyfikacji}.
+\iffalse
+%%
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{site/algos_io.png}
+\end{center}
+\fi
+\subsection{Wyniki wyszukiwania}
+% \begin{center}
+%     \includegraphics[width=0.7\textwidth]{site/po_wyszukaniu.png}
+% \end{center}
+Wyświetlona zostanie tabela wyników, maksymalnie 50 wyników na raz, w przypadku,
+gdy miałoby być zwróconych ich więcej, na dole strony będzie się znajdowała Nawigacja
+stron z wynikami. Po najechaniu kursorem na dany wiersz tabeli wyników, zostanie on podświetlony, sugerując że może zostać kliknięty przez użytkownika (zostanie użyta opcja HTML 'hover' oraz CSS w tym celu). Po kliknięciu odpowiedniej etykiety <input type='button'>, w przypadku posiadania przez lek wielu różnych wskazań refundacyjnych, użytkownik zostanie przeniesiony do okna wyboru choroby. Kliknięcie wyśle do serwera zapytanie na adres '/api/groups/<group$\_$id>.json'.
+\subsubsection{Nawigacja stron}
+Po kliknięciu kursorem etykiety <input type='button'>, użytkownik zostanie przeniesiony na odpowiedni fragment listy wyników (część wyników będzie niewidoczna dla użytkownika, bo w HTML będzie oznaczona jako 'hidden', JS zmieni widoczność).
+\subsection{Wybór choroby}
+Po najechaniu kursorem na dany wiersz tabeli wyników, zostanie on podświetlony.
+ Po kliknięciu (odpowieda etykiecie <input type='button'>) przeglądarka wyśle zapytanie do serwera na adres '/api/selection/<ean>.json'.
+\subsection{Dokładne informacje o leku}
+Po najechaniu kursorem na dany wiersz tabeli wyników, zostanie on podświetlony.
+ Po kliknięciu (odpowieda etykiecie <input type='button'>) przeglądarka wyśle zapytanie do serwera na adres '/api/details/<id>.json'.
+ 
+\section{Baza danych}
+
+Dane przetwarzane przez projekt będą obsługiwane przez bazę danych PostgreSQL. Tabele w bazie będą przechowywane w schemacie utworzonym przez polecenie:
+\begin{verbatim}
+    CREATE SCHEMA odpowiedniki;
+\end{verbatim}
+Tabela zawierająca skatalogowane leki:
+    \begin{verbatim}
+    CREATE TABLE odpowiedniki.leki (
+        id INTEGER PRIMARY KEY,
+        name VARCHAR NOT NULL,
+        ean VARCHAR NOT NULL,
+        refund VARCHAR NOT NULL,
+        price INTEGER NOT NULL,
+        amount INTEGER NOT NULL,
+        amount_unit VARCHAR,
+        group_id INTEGER NOT NULL
+    );
+    \end{verbatim}
+W przypadku leku, pole \verb|"amount_unit"| będzie zawierało jednostkę w której została podana ilość sztuk w opakowaniu. 
+Jeśli lek nie został przetworzony, pole \verb|"amount_unit"| pozostaje puste, oraz pole \verb|"group_id"| zawiera wartość -1.
+
+\subsection{Zapytania bazy danych}
+
+Interfejs użytkownika będzie realizowany za pomocą następujących zapytań w bazie danych: \newline
+
+\centerline{GET /search?q=<fraza>&p=<strona>}
+
+
+
+
+\end{document}
