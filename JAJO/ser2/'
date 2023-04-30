@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{JAO praca domowa}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 2.1}
+$$ L_{\exists} = \displaystyle \left\{ ab^{n_1}ab^{n_2} \dots ab^{n_k}a \in \{a, b\}^* \; 
+| \; \exists i \in \mathbb{N}. \; 1 \le i \le k \land  n_i = k \right\}$$
+
+\subsection*{Definicja gramtyki}
+
+Niech $ \mathcal{G} $ będzie gramatyką opisującą $ L_{\exists}$. $ \mathcal{G} = (T, N, P, S) $ gdzie:
+\begin{itemize}
+	\item[] $T$ - zbiór symboli terminalnych, $T = \{a, b\}$
+	\item[] $N$ - zbiór symboli nieterminalnych, $N = \{S, L_0, R_0, L_1, R_1 \}$
+	\item[] $P$ - zbiór reguł, zdefiniowany poniżej
+	\item[] $S$ - symbol początkowy
+\end{itemize}
+Do $P$ należą następujące reguły:
+$$ S \to L_0bR_0 \;| \; a$$
+$$ L_0 \to aL_1 \; | \; a$$
+$$ R_0 \to R_1a \; | \; a$$
+$$ L_1 \to aL_1b \; | \; bL_1 \; | \; a$$
+$$ R_1 \to bR_1a \; | \; R_1b \; | \; a$$
+
+\subsection*{Inkluzja $L_{\exists} \subseteq L(\mathcal{G})$}
+
+Niech $w$ będzie dowolnym słowem z $L_{\exists}$. Pokażemy, że potrafimy zwinąć $w$ do $S$ korzystając z odwrotnych przejść gramatyki $\mathcal{G}$, czyli, że $w \in L(\mathcal{G})$ \newline
+Niech $k$ będzie stałą z definicji $w$, oraz niech $a_l, a_r$ będą zwykłymi literami $a$ z $w$, wyróżnionymi dla naszej wygody.
+$$w = prefix \cdot a_lb^ka_r \cdot suffix$$ (pomijając trywialny przypadek dla $w = a$). \newline
+Pokażmy, jak zwinąć $prefix$, $suffix$ zwija się analogicznie. \newline
+Jeśli na początku $|prefix|=0$, to przekształcamy $a_l \to L_0$ i kończymy. \newline
+Jeśli nie to przekształcamy $a_l \to L_1$ i wykonujemy następujący algorytm. \newline 
+\begin{itemize}
+
+\end{itemize}
+
+\end{document}:

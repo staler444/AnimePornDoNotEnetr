@@ -12,7 +12,7 @@
 \usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
 
 \title{JAO praca domowa}
-\author{Bartosz Kucypera}
+\author{Bartosz Kucypera, bk439964}
 \date{\today}
 
 \begin{document}
@@ -21,12 +21,12 @@
 
 \section*{Zadanie 2.2} 
 
-$$ L_{\forall} = \{ab^{n_1}ab^{n_2} \dots ab^{n_{k}}a \in \{a, b\}^* \; | \; \forall i \in \mathbb{N}.\; 1 \le i \le k \implies n_i = k\}$$
+$$ L_{\forall} = \displaystyle \left\{ab^{n_1}ab^{n_2} \dots ab^{n_{k}}a \in \{a, b\}^* \; | \; \forall i \in \mathbb{N}.\; 1 \le i \le k \implies n_i = k\right\}$$
 
 \subsection*{Lemat 1}
 Jeśli $w'$ jest podsłowem jakiegoś słowa z $L_{\forall}$, oraz $w'$ zawiera conajmniej dwie litery $a$, to istnieje dokładnie jedno słowo $w \in L_{\forall}$, takie, że $w'$ jest podsłowem $w$. \newline \newline
 Zauważmy, że istnieje bardzo prosta biekcjia pomiędzy zbiorem $L_{\forall}$ a zbiorem liczb naturalnych ($0 \in \mathbb{N}$).
-Każde słowo z $L_{\forall}$, ma strukturę $a(b^ka)^k$ ($a$ dla $k=0$), czyli każde słowo z $L_{\forall}$ możemy utożsamiać z jakimś $k \in \mathbb{N}$, i dla każdego $k$ potrafimy wygenerować słowo z $L_{\forall}$. Teraz dla danego $w'$, jeśli zawiera ono przynajmniej dwie litery $a$, możemy odczytać $k$ licząc wystąpienia liter $b$ pomiędzy dwoma kolejnymi literami $a$. Znając $k$ potrafimy wskazać $w \in L_{\forall}$, którego $w'$ jest podsłowem.
+Każde słowo z $L_{\forall}$, ma strukturę $a(b^ka)^k$ ($a$ dla $k=0$), czyli każde słowo z $L_{\forall}$ możemy utożsamiać z jakimś $k \in \mathbb{N}$, i dla każdego $k$ potrafimy podać słowo z $L_{\forall}$. Teraz dla danego $w'$, jeśli zawiera ono przynajmniej dwie litery $a$, możemy odczytać $k$ licząc wystąpienia liter $b$ pomiędzy dwoma kolejnymi literami $a$. Znając $k$ potrafimy wskazać $w \in L_{\forall}$, którego $w'$ jest podsłowem.
 
 \subsection*{Rozwiązanie}
 Załóżmy, że $L_{\forall}$ jest językiem bezkontekstowym. \newline 
