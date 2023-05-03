@@ -1,4 +1,4 @@
 # AnimePornDoNotEnetr
-tak jak w opisie 
+tak jak w tytule
 
 Vimtex extension with tectonic tex compiler
