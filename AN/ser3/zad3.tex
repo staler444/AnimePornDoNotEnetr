@@ -19,6 +19,23 @@
 
 \maketitle
 
-\section*{Zadanie 1} 
+\section*{Zadanie 1}
+$$ \displaystyle S(x) =\sum_{n=1}^{\infty} |x|^{\sqrt{n}} $$
+Dla $|x| \ge 1$ szereg nie spełnia warunku koniecznego zbieżności, czyli rozbieżny. \newline \newline
+Dla $|x| < 1$, zauważmy, że:
+$$\displaystyle \frac{|x|^{\sqrt{n}}}{\frac{1}{n^2}} = \exp(\sqrt{n}\ln(|x|) +2\ln(n)) = 
+\exp\left(\sqrt{n}\ln(|x|) \left( 1 + \frac{2}{\ln(|x|)}\frac{\ln(n)}{\sqrt{n}} \right) \right) $$
+$$ \displaystyle \lim_{n \to \infty} \left(1 + \frac{2}{\ln(|x|)} \frac{\ln(|x|)}{\sqrt{n}} \right) = 1, \mbox{ oraz } \lim_{n \to \infty} \sqrt{n}\ln(|x|) = -\infty $$
+czyli 
+$$ \lim_{n \to \infty} \frac{|x|^{\sqrt{n}}}{\frac{1}{n^2}} = 0, $$
+więc dla dostatecznie dużych $n$ zachodzi $$|x|^{\sqrt{n}} < \frac{1}{n^2}$$
+czyli szereg zbieżny jednostajnie z kryterium Weierstrassa na $(-1, 1)$. \newline
+Oczywiście suma szeregu jest też ciągła na $(-1, 1)$, gdyż ciąg sum częściowych spełnia założenia Twierdzenia 7.7 ze skryptu Pawła Strzeleckiego. 
+$$ S_N : (-1, 1) \to \mathbb{R}, \; S_N(x) = \sum_{n=1}^{N} |x|^{\sqrt{n}} $$
+Każdy wyraz $S_N$ ciągły (skończona suma funkcji ciągłych). \newline
+$(-1, 1)$ jest przedziałem. \newline
+$S_N \rightrightarrows S \mbox{ na } (-1, 1)$ \newline
+Czyli funkcja graniczna $S$ ciągła na $(-1, 1)$.
+
 
 \end{document}

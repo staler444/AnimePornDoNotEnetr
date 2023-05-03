@@ -19,6 +19,35 @@
 
 \maketitle
 
-\section*{Zadanie 1} 
+\section*{Zadanie 4}
+$$ S(x) = \sum^{\infty}_{n=1} \frac{\cos(n\pi)\cos(x/n)}{\sqrt{n} + \cos(x)}, \mbox{ dla } x \in \mathbb{R} $$
+W zadaniu mamy chyba mały błąd (albo czegoś nie widzę). Szereg nie jest dobrze zdefiniowany dla np. $x = \pi$, bo pierwszy wyraz szeregu $S(\pi) = \displaystyle \frac{-1 \cdot -1}{1 + -1} = \frac{1}{0}$, założyłem, więc że sumujemy od 2.
+
+Zbadajmy jak $S$ zachowuje się na przedziałach postaci $[a, b]$ $a,b \in \mathbb{R}.$ \newline
+
+Niech $f_n(x) = \frac{1}{\sqrt{n} + \cos(n)}, g_n(x) = \cos(n\pi)\cos(x/n) = (-1)^n\cos(x /n).$
+\subsection*{1) Ciąg sum częściowych $\displaystyle \sum_{n=2}^{\infty}g_n(x)$ ograniczony na $[a, b]$}
+Niech $n_0 \in \mathbb{N}$ takie, że $n_0 > \mbox{max}(|a|,|b|)$. 
+\newline Zauważmy, że każdy ciąg postaci $(\cos(x /n))_{n_0}^{\infty}, x \in [a, b],$ jest monotonicznie zbierzny do 1. \newline
+Dla każdego $n \ge n_0$, $|x/n| < 1$. Jeśli $x < 0, (x/n)$ jest rosnący i zbieżny do 0, $\cos$ rosnący na $(-1, 0]$, więc $\cos(x/n)$ montonicznie zbieżny do 1. \newline
+Dla $x = 0, \cos(x /n) = 1$. \newline 
+Dla $x > 0, (x/n)$ malejący, $\cos$ malejący na $[0, 1)$ czyli też ciąg zbieżny monotonicznie do 1.
+$$ \sum_{n=n_0}^{N}g_n(x) = \sum_{n=n_0}^{N}(-1)^n(\cos(x /n) - 1 + 1) = 
+\underbrace{\sum_{n = n_0}^{N}(-1)^n(\cos(x /n) - 1)}_L + \underbrace{\sum_{n = n_0}^N(-1)^n}_R$$
+przy czym L to suma częściowa zbieżnego szeregu (z kryterium Leibniza), więc jest ograniczona, R też oczywiście ograniczony. \newline \newline
+Czyli $\displaystyle \sum_{n=n_0}^{N}g_n(x)$ ograniczony, $n_0$ ustalone, więc $\displaystyle \sum_{n=2}^{N}g_n(x)$ też ograniczony.
+\subsection*{2) $f_n \rightrightarrows 0$ na $[a, b]$}
+Ciąg $\displaystyle (f_n(x))_2^{\infty}$ punktowo zbieżny do 0. \newline
+Zauważmy, że: 
+$$ |f_n(x)| = \left|\frac{1}{\sqrt{n} + \cos(x)}\right| \le \frac{1}{\sqrt{n}-1}, $$
+czyli
+$$ \lim_{n \to \infty } \sup_{x\in [a, b]}|f_n(x) - 0| = 0,$$
+więc $f_n$ zbieżne jednostajnie z definicji.
+\subsection*{Konkluzja}
+Niech $(S_N)$ będzie ciągiem sum częściowych $S$.
+Skoro na przedziale $[a, b]$ zachodzi 1) i 2) to na mocy jednostajnego kryterium Dirichlet'a szereg $S$ zbieżny jednostajnie na $[a, b]$. \newline 
+$S_N$ jest ciągiem funkcji ciągłych (każdy element to skończona suma fuckji ciągłych), więc skoro 
+$(S_N)$ zbieżny jednostajnie do $S$ to $S$ też ciągła na $[a, b]$. \newline
+Z dowolności wybrou przedzaiłu $[a, b]$, wnioskujemy ciągłość $S$ na $\mathbb{R}$. (dla każdego $x_0 \in \mathbb{R}$, $S$ ciągła na $[x_0-1, x_0+1]$ czyli ciągła w $x_0$)
 
 \end{document}

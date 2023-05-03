@@ -20,5 +20,21 @@
 \maketitle
 
 \section*{Zadanie 1} 
+$$f_n : [1, \infty] \to \mathbb{R}, f_n(x) = n(\sqrt[\leftroot{0} \uproot{0} n]{x} - 1) \mbox{ dla } n \in \mathbb{N}$$
+
+\subsection*{Zbieżność punktowa}
+$$ \displaystyle \lim_{n \to \infty} n(\sqrt[n]{x} - 1) = 
+\ln(x) \lim_{n \to \infty} \frac{x^\frac{1}{n} -1}{\frac{\ln(x)}{n}} = 
+\ln(x) \lim_{n \to \infty} \frac{\exp(\frac{\ln(x)}{n}) - \exp(0)}{\frac{\ln(x)}{n}} = 
+\ln(x) \lim_{h \to 0} \frac{\exp(h) - \exp(0)}{h}  = \ln(x)$$
+Czyli $(f_n)$ punktowy zbieżny do $\ln$.
+\subsection*{Zbieżność jednostajna}
+Niech $x_n = n^n$. Zauważmy, że:
+$$ |n(\sqrt[n]{x_n}-1) - f_n(x_n)| = |n(n-1) - n\ln(n)| = |n(n-1-\ln(n))| $$
+Oczywiście $\lim_{n \to \infty} |n(n-1\ln(n))| = \infty$, więc ciąg $(f_n)$ nie spełnia jednostajnego warunku Cauchy'ego.
+\subsection*{Zbieżność niemal jednostajna}
+Zauważmy, że skoro $\sqrt[n]{x}$ są rosnące na $[1, \infty]$ to funkcje $f_n$ też. \newline 
+Teraz, dla dowolnego $R \in \mathbb{R}, R > 1$, funkcje $f_n$ na przedziałach postaci $[1, R]$ są
+rosnącę, oraz ciąg $(f_n)$ jest punktowo zbieżny do funckji ciągłej, czyli $f_n$ spełnia założenia drugiego twierdzenia Diniego. Ciag $(f_n)$ zbiega niemal jednostajnie do $\ln$.
 
 \end{document}
