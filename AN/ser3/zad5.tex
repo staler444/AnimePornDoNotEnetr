@@ -36,16 +36,17 @@ Dla $x = 0$, $S(0) = 0$.
 
 \subsection*{Zbieżność jednostajna ciągu pochodnych sum częściowych}
 
-Neich $(S_N)_{1}^{\infty}$ będzie ciągiem sum częściowych $S$.
+Neich $(S_N)_{2}^{\infty}$ będzie ciągiem sum częściowych $S$.
 $(S_N)$ dobrze określony i różniczkowalny na $\mathbb{R}$. \newline
 Zbadajmy $S_N'$:
-$$ S_N'(x) = \sum_{n=1}^{N} \left( \frac{(-1)^n \arctan(x/ \sqrt{n})}{\sqrt{n}} \right)' =
-\sum_{n=1}^{N} \frac{(-1)^n}{\sqrt{n}} \cdot \frac{1}{1 + x^2 /n} \cdot \frac{1}{\sqrt{n}} =
-\sum_{n=1}^{N} \frac{(-1)^n}{n+x^2}$$
+$$ S_N'(x) = \sum_{n=2}^{N} \left( \frac{(-1)^n \arctan(x/ \sqrt{n})}{\sqrt{n}} \right)' =
+\sum_{n=2}^{N} \frac{(-1)^n}{\sqrt{n}} \cdot \frac{1}{1 + x^2 /n} \cdot \frac{1}{\sqrt{n}} =
+\sum_{n=2}^{N} \frac{(-1)^n}{n+x^2}$$
 
-$$ \sum_{n=1}^{N}(-1)^n \mbox{ ograniczony} $$
-$$\frac{1}{n+x^2} \le \frac{1}{n} \mbox{ czyli z kryterium Weierstrassa, zbieżny jednostajnie do 0}$$
-$(S_N')$ spełnia, więc założenia jednostajnego kryterium Dirichlet'a, czyli jest zbieżny jednostajnie do pewnej ciągłej funkcji $g$ (ciągłej, bo każdy element ciągu $(S_N')$ jest skończoną sumą funckji ciągłych, czyli jest ciągły). \newline \newline
+$$\mbox{Czyli szereg } g(x) = \sum_{n=2}^{\infty}\frac{(-1)^n}{n+x^2} \mbox{zbieżny punktowo z kryterium Leibniz'a.}$$
+Zauważmy też, że skoro $g$ szeregiem alternjącym to: 
+$$\forall x \in \mathbb{R}, \;|S_N'(x) - g(x)| \le |S_N'(x)-S_{N+1}'(x)| = \frac{1}{N+1+x^2} \le \frac{1}{N}$$
+Czyli $S_N'$ zbieżny jednostajnie do $g$. Skoro dla każdego $N$, $S_N'$ funkcją ciągłą (skończona suma funkcji ciągłych), to funckja graniczna $g$, też ciągła.
 
 \subsection*{Konkluzja}
 
