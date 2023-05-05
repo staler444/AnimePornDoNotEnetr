@@ -28,7 +28,7 @@ $$ |f_n(x)| = \frac{|x|}{1+n^2|x|^2} \le^* \frac{1}{n}$$
 $$*) \; \; \frac{|x|}{1+n^2|x|^2} \le \frac{1}{n} \Leftrightarrow 0 \le n^2|x|^2 - n|x| + 1, 
 \Delta = -3n^2, \mbox{ czyli spełnione dla } n > 0 $$
 
-$f_n$ punktowo zbieżny do zera oraz $|f_n - 0| < \frac{1}{n}$, czyli $f_n$ jednostajnie zbieżny z definicji.
+$f_n$ punktowo zbieżny do $f = 0$ oraz $\sup_{x\in[-1,1]}|f_n(x) - f(x)| < \frac{1}{n}$, czyli $f_n$ jednostajnie zbieżny z definicji.
 
 \subsection*{Zbieżnosć jednostajna $f_n'$}
 
@@ -38,14 +38,14 @@ Dla $x = 0$
 $$f_n'(x) = 0$$
 Dla $x \ne 0$
 $$|f_n'(x)| = \frac{n^2x^2}{(1+n^2x^2)^2} \le \frac{1}{n^2x^2}$$
-$$\displaystyle \lim_{n \to \inf } \frac{1}{n^2x^2} = 0 $$
+$$\displaystyle \lim_{n \to \infty } \frac{1}{n^2x^2} = 0 $$
 Czyli $f_n'$ punktowo zbiega do 0. \newline \newline
 
 Neich $x_n = \frac{1}{n}$. Zauważmy, że:
 $$ f_n'(x_n) = -\frac{1}{2} $$
 Czyli $f_n'$ nie jest zbieżne jednostajnie.
 
-\subsection*{Różniczkowalność $f(x) = \displaystyle \lim_{n \to \inf} f_n(x)$}
+\subsection*{Różniczkowalność $f(x) = \displaystyle \lim_{n \to \infty} f_n(x)$}
 Tak, skoro $f(x) = 0$ to $f$ jest różniczkowalne.
 
 

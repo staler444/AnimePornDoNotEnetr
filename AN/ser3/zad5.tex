@@ -21,7 +21,22 @@
 
 \section*{Zadanie 5}
 $$S(x) = \displaystyle \sum_{n=1}^{\infty}\frac{\cos(n\pi)\arctan(x/ \sqrt{n})}{\sqrt{n}} $$
-Neich $(S_N)_{1}^{\infty}$ będzie ciągiem sum częściowych $S$. 
+
+\subsection*{Zbieżność punktowa $S$}
+Zauwżmy, że: \newline 
+
+Dla $x > 0$, $S(x) = \sum_{n=1}^{\infty} (-1)^n \frac{\arctan(x /\sqrt{n})}{\sqrt{n}}$, a skoro:
+$$\left( \frac{x}{\sqrt{n} }\right) \mbox{ ściśle malejący, oraz } \arctan  \mbox{ściśle rosnący na } [0,\infty] \mbox{ to } \frac{\arctan(x /\sqrt{n})}{\sqrt{n}} \mbox{ monotonicznie zbiega do } 0.$$
+Czyli z kryterium Leibniza $S$ zbieżny punktowo dla $x > 0$. \newline
+Dla $x < 0$:
+$$S(x) = -S(-x), \mbox{ bo } \arctan(x) = -\arctan(-x). $$
+Czyli też zbieżny dla $x < 0$, bo $-x > 0$.
+
+Dla $x = 0$, $S(0) = 0$.
+
+\subsection*{Zbieżność jednostajna ciągu pochodnych sum częściowych}
+
+Neich $(S_N)_{1}^{\infty}$ będzie ciągiem sum częściowych $S$.
 $(S_N)$ dobrze określony i różniczkowalny na $\mathbb{R}$. \newline
 Zbadajmy $S_N'$:
 $$ S_N'(x) = \sum_{n=1}^{N} \left( \frac{(-1)^n \arctan(x/ \sqrt{n})}{\sqrt{n}} \right)' =
@@ -32,12 +47,16 @@ $$ \sum_{n=1}^{N}(-1)^n \mbox{ ograniczony} $$
 $$\frac{1}{n+x^2} \le \frac{1}{n} \mbox{ czyli z kryterium Weierstrassa, zbieżny jednostajnie do 0}$$
 $(S_N')$ spełnia, więc założenia jednostajnego kryterium Dirichlet'a, czyli jest zbieżny jednostajnie do pewnej ciągłej funkcji $g$ (ciągłej, bo każdy element ciągu $(S_N')$ jest skończoną sumą funckji ciągłych, czyli jest ciągły). \newline \newline
 
-Teraz skoro ciąg $(S_N(0))$ zbieżny (bo $S(0) = 0$), oraz $S_N' \rightrightarrows g$ możemy skożystać z twierdzenia 7.19 ze skryptu Pawła Strzeleckiego. \newline 
+\subsection*{Konkluzja}
+
+Niech $[a,b] \subset \mathbb{R}$, dowolnym przedziałem zwartym. \newline
+
+Teraz skoro $S_N' \rightrightarrows g$ na $[a,b]$, oraz ciąg $(S_N(a))$ zbieżny, możemy skożystać z twierdzenia 7.19 ze skryptu Pawła Strzeleckiego, o różniczkowaniu ciągów funkcyjnych. \newline 
 Wnioskujemy, że: 
-$$(S_N) \mbox{ zbieżny jednostajnie, czyli } S \mbox{ ciągła i określona na } \mathbb{R},$$
-$$ S \mbox{ różniczkowalna i } S' = g. $$
-Ciągłość $g$ mieliśmy już wcześniej.
-Czyli faktycznie $S$ klasy $C^1$.
+$$(S_N) \mbox{ zbieżny jednostajnie, czyli } S \mbox{ ciągła i określona na } [a,b],$$
+$$ S \mbox{ różniczkowalna i } S' = g, \mbox{ na } [a,b]$$
+Ciągłość $g$ mieliśmy już wcześniej. \newline
+Z dowolności wyboru $[a,b]$ wnioskujemy, że $S$ klasy $C^1$ na $\mathbb{R}$, (różniczkowalność i ciągłość to własności lokalne).
 
 
 \end{document}
