@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[skip=3pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza inf. II}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Rozwiązanie przygotowałem samodzielnie, ze świadomością, iż etyczne zdobywanie zaliczeń jest, zgodnie z Regulaminem Studiów, obowiązkiem studentek i studentów UW.
+
+\section*{Zadanie 3} 
+$$ F(x) = \int_x^{3x} \frac{\ln(t+1)}{t}dt, \mbox{ dla } x>0 $$
+
+\subsection*{1) F rosnąca:}
+Zauważmy, że:
+
+$$ F(x) = G(3x) - G(x) $$
+dla pewnej funckji $G$ takiej, że $G'(x)=\frac{\ln(1+x)}{x}$. \newline 
+
+Stąd: 
+$$ F'(x) = G'(3x) - G'(x) = \frac{\ln(1+3x)}{x} - \frac{\ln(1+x)}{x} $$
+ln ściśle rosnący oraz $x>0$, więc 
+$$ \ln(1+3x) > \ln(1+x) $$
+czyli $F' > 0$, czyli $F$ rosnąca na $(0,\infty)$.
+
+\subsection*{2) $\displaystyle \lim_{x \to \infty} F(x)$}
+Zauważmy, że 
+
+$$ \left( \frac{\ln(1+x)}{x} \right)' = \frac{\frac{x}{1+x} - \ln(1+x)}{x^2}$$
+
+$\frac{x}{1+x} \le \ln(1+x)$ dla $x>-1$, czyli
+
+$$ \left( \frac{\ln(1+x)}{x} \right)' \le 0 \mbox{ dla } x>0$$
+czyli $\frac{\ln(1+x)}{x}$ nierosnąca na $(0,\infty)$.
+
+Korzystając z geometrycznej interpretacji całki, możemy teraz stwierdzić, że:
+
+$$ F(x) = \int_x^{3x} \frac{\ln(1+t)}{t}dt \ge 2x \cdot \frac{\ln(1+3x)}{3x} = \frac{2}{3}\ln(1+3x) $$
+
+$\displaystyle \lim_{x \to \infty} \frac{2}{3} \ln(1+3x) = \infty$, więc też 
+
+$$ \lim_{x \to \infty} F(x) = \infty $$
+
+\newpage
+
+\subsection*{3) $\displaystyle \lim_{x \to 0} F(x)$}
+Kożystając z gemetrycznej interpretacji całki, oraz z tego, że funkcja podcałkowa nierosnąca otrzymujemy następującą nierówność:
+
+$$ \int_x^{3x} \frac{\ln(1+t)}{t}dt \le 2x \cdot \frac{\ln(1+x)}{x} = 2\ln(1+x) $$
+Ponadto $F(x) \ge 0$ ponieważ, funckja podcałkowa dodatnia oraz $3x > x$ na $(0, \infty)$. Skoro 
+
+$$ 0 \le F(x) \le 2\ln(1+x) \mbox{ oraz, } \lim_{x \to 0} 2\ln(1+x) = 0$$
+to
+$$ \lim_{x \to 0} F(x) = 0 $$
+
+\end{document}

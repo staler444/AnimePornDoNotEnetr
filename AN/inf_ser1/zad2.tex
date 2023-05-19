@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\def\rw{$rownanie^*$}
+
+\title{Analiza seria 3}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Rozwiązanie przygotowałem samodzielnie, ze świadomością, iż etyczne zdobywanie zaliczeń jest, zgodnie z Regulaminem Studiów, obowiązkiem studentek i studentów UW.
+
+\section*{Zadanie 1}
+Niech $f:[a,b] \to (0,\infty)$ bedzie ciągła i rosnąca. Oznaczmy $a'=f(a),b'=f(b)$.
+
+Wykazać, że 
+$$\int_a^bf(x)dx+\int_{a'}^{b'}f^{-1}(y)dy=bb' - aa',$$
+gdzie $f^{-1}$ oznacza funkcję odwrotną do $f$.
+
+\rw - równanie z polecenia
+
+\subsection*{Przypadek $a=0$}
+Jeśli $a=0$ zadanie wynika natychmiast z interpretacji geometrycznej i wzoru na pole prostokąta.
+
+\includegraphics[scale=0.2]{jd.png}
+
+
+\subsection*{Przypadek ogólny, równoważność z funkcją przesuniętą}
+Dla dowolnej stałej $s$, rozważmy funkcję $g_s:[a+s,b+s] \to (0, \infty)$ daną wzorem $g_s(x+s) = f(x)$. \newline
+Interpretując geometrycznie, rozważamy funkcję z takim samym wykresem co $f$, tylko przesuniętą wzdłuż osi $Ox$. \newline 
+Zauważmy, że:
+$$g_s^{-1}(x+s) = f^{-1}(x) + s$$
+oraz, że
+$$\int_{a+s}^{b+s}g_s(x)dx = \int_a^bf(x)dx,$$
+pole pod wykresem takie same, tylko "przesuneliśmy" wykres na bok. \newline
+\newline
+Teraz rozpiszmy \rw dla funkcji $g$.
+$$\int_{a+s}^{b+s}g_s(x)dx + \int_{g_s(a+s)}^{g_s(b+s)}g_s^{-1}(y)dy = (b+s)g_s(b+s)-(a+s)g_s(a+s)$$
+czyli,
+
+$$\int_a^bf(x)dx + \int_{f(a)}^{f(b)}f^{-1}(y)+s \;dy = (b+s)f(b) - (a+s)f(a)$$
+czyli, 
+
+$$\int_a^bf(x)dx + \int_{a'}^{b'}f^{-1}(y)dy + (b'-a')s = bb'-aa' + (b'-a')s$$
+czyli faktycznie równość dla $g$ jest równoważna równości dla $f$. \newline
+
+Teraz, dla dowolnej funckjci $f:[a,b] \to (0,\infty)$ spełnienie przez nią $rownania^*$, jest równoważne ze spełnieniem $rownania^*$ przez funkcję $g_{s}$ dla $s=-a$ czyli dla funckji $g_{-a}:[0,b-s] \to (0, \infty)$, dla której już wiemy, że spełnia ona \rw. Czyli każda funckcja spełniająca założenia z teści zadania, spełnia \rw.
+
+
+
+\end{document}
