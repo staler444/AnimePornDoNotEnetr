@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Rozwiązanie przygotowałem samodzielnie, ze świadomością, iż etyczne zdobywanie zaliczeń jest, zgodnie z Regulaminem Studiów, obowiązkiem studentek i studentów UW.
+
+\section*{Zadanie 1} 
+Ciąg $(a_n)_{n=1}^{\infty}$ jest dany wzorem $a_n=\sqrt[2n+1]{(2n)!}$. Niech
+$$b_n=\sup_{x\in[0,a_n]} \left| \cos{x}-\sum_{k=0}^{n}\frac{(-1)^k}{(2k)!}x^{2k} \right|$$
+Udownodnić, że $\displaystyle \lim_{n\to \infty}b_n=0$.
+
+\subsection*{}
+Skorzystajmy z rozwinięcia $\cos{x}$ w szereg Taylora w zerze z resztą w postaci Lagrange’a, by zapisać $b_n$ w inny, równoważny sposób.
+
+$$ b_n = \sup_{x\in[0,a_n]} \left| \frac{\cos^{(2n+1)}(c(x))}{(2n+1)!}x^{2n+1} \right|,$$
+gdzie $c(x)$ to funkcja stałej reszty Lagrange'a, $c(x)\in[0,x]$.
+
+\subsection*{}
+Oczywiście $b_n \ge 0$. Zachodzi następujący ciąg nierówności
+
+$$ \sup_{x\in[0,a_n]} \left| \frac{\cos^{(2n+1)}(c(x))}{(2n+1)!}x^{2n+1} \right| \le 
+\sup_{x\in[0,a_n]} \left| \frac{1}{(2n+1)!}x^{2n+1} \right| \le 
+\frac{(a_n)^{2n+1}}{(2n+1)!} $$
+czyli,
+
+$$ 0 \le b_n \le \frac{1}{2n+1} $$
+Skoro $\displaystyle \lim_{n \to \infty} \frac{1}{2n+1} = 0$, to z trzech ciągów 
+$$\lim_{n \to \infty} b_n = 0$$
+
+
+
+\end{document}

@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Rozwiązanie przygotowałem samodzielnie, ze świadomością, iż etyczne zdobywanie zaliczeń jest, zgodnie z Regulaminem Studiów, obowiązkiem studentek i studentów UW.
+
+\section*{Zadanie 5}
+
+Funkcja $f$ określona na zbiorze $\{(x,y)\in \mathbb{R}^2:xy>-1\}$ wzorem
+
+\[ 
+f(x,y)=
+\begin{cases} \displaystyle
+	\frac{\sqrt{1+xy}-1}{y} & \mbox{ dla } y\neq0, \\
+	x /2 & \mbox{ dla }y=0. \\
+   \end{cases}
+\]
+
+
+Zbadać, czy $Df(a)$ istnieje dla $a=(0,0)$ i $a=(1,0)$.
+
+\subsection*{1) $a=(0,0)$}
+Niech $A$ będzie macieżą, pochodnych cząstkowych w punkcie $a$. \newline \newline 
+$Df(a)$ istnieje wtedy i tylko wtedy gdy,  $\displaystyle \lim_{h \to (0,0)} \frac{f(a+h)-f(a)-A \cdot h}{||h||} = 0$. Jeśli istnieje to $Df(a)$ = $A$. \newline
+
+Obliczmy $A$. Najepierw pochodna po $x$:
+$$ \lim_{h \to 0} \frac{f(h,0) - f(0, 0)}{h} = 
+\lim_{h \to 0} \frac{h/2}{h} = \frac{1}{2}$$
+Pochodna po $y$:
+$$
+\lim_{h \to 0} \frac{f(0, h) - f(0, 0)}{h} = 
+\lim_{h \to 0} \frac{\frac{\sqrt{1}-1}{h}}{h} = 0
+$$
+
+Czyli
+$$ A =
+\begin{bmatrix}
+1 /2 \\
+0
+\end{bmatrix}
+$$
+Dla każdego $v$ postaci $(v_1, 0)$, gdzie $v_1 \neq 0$, zachodzi
+$$ \frac{f(a+v)-f(a)- A \cdot v}{||v||} = \frac{\frac{v_1}{2} - \frac{v_1}{2}}{||v||} = 0 $$
+Teraz, podobnie dla każdego wektora $v$ postaci $(0, v_2)$ gdzie $v_2 \neq 0$, zachodzi
+$$ \frac{f(a+v)-f(a)- A \cdot v}{||v||} = \frac{\frac{\sqrt{1} - 1}{h_2}}{||h||} = 0$$
+Załóżmy więc, że obie współżędne wektora dążącego do $a$ są niezerowe. Wtedy
+$$ \lim_{h\to (0,0)} \frac{f(a+h) - f(a)-A \cdot h}{||h||} = 
+\lim_{h \to (0,0)} \frac{\frac{\sqrt{1+h_1h_2}-1}{h_2} - \frac{h_1}{2}}{||h||} = 
+\lim_{h \to (0,0)}\frac{\frac{\exp(\frac{1}{2} \ln(1+h_1h_2))}{h_2} - \frac{h_1}{2}}{||h||} $$
+Korzystając z rozwinięcia w szereg Taylora $\ln$ a potem $\exp$, otrzymujemy
+$$ \lim_{h \to (0,0)}\frac{\frac{\exp(\frac{1}{2} \ln(1+h_1h_2))}{h_2} - \frac{h_1}{2}}{||h||} =
+\lim_{h \to (0,0)}\frac{\frac{\frac{1}{2}h_1h_2 + o(h_1h_2)}{h_2} - \frac{h_1}{2}}{||h||} = 
+\lim_{h \to (0,0)} \frac{o(h_1h_2)}{||h||}$$
+co oczywiście zbiega do 0, bo 
+$$0 \le \left| \frac{o(h_1h_2)}{||h||} \right| \le \left| \frac{o(h_1h_2)}{2h_1h_2} \right| $$
+a 
+$$ \lim_{h \to (0,0)} \left| \frac{o(h_1h_2)}{2h_1h_2} \right| = 0, \mbox{ z definicji.} $$
+
+Czyli $f$ różniczkowalna w $a$, $Df(a)$ istnieje i jest równe $A$.
+
+\subsection*{2) $a=(1,0)$}
+Tak samo jak wcześniej, wyliczamy macież $A$. \newline
+Pochodna cząstkowa po $x$ dalej jest stała i równa $1/2$. Policzmy pochodną po $y$ w $a$.
+$$\lim_{h \to 0} \frac{f(1,0+h)-f(1,0)}{h} = 
+\lim_{h \to 0} \frac{\frac{\sqrt{1+h}-1}{h} - \frac{1}{2}}{h} 
+= \lim_{h \to 0}\frac{\frac{\exp(\frac{1}{2}\ln(1+h))-1}{h} - \frac{1}{2}}{h} $$
+Tak jak wcześniej, korzystamy z rowinięć w szeregi Tylora, $\exp$ i $\ln$, tylko tym razem z większą dokładnością.
+
+$$ \lim_{h \to 0}\frac{\frac{\exp(\frac{1}{2}\ln(1+h))-1}{h} - \frac{1}{2}}{h} = 
+\lim_{h \to 0} -\frac{1}{8} + \frac{o(h^2)}{h^2} = -\frac{1}{8} $$
+Czyli 
+$$ A =
+\begin{bmatrix}
+\: \; \: 1 /2 \\
+-1 /8
+\end{bmatrix}
+$$
+
+Niech $a_n=(1+1/n,0)$, $a_n$ dąży do $a$. Zauważmy, że
+$$ \lim_{n \to \infty} \frac{f(a_n) - f(a) - A \cdot (a_n-a)}{||a_n-a||} = 
+\lim_{n \to \infty} \frac{\frac{1}{2n}-\frac{1}{2}-\frac{1}{2n}}{|\frac{1}{n^2}|} =
+\infty
+$$
+czyli $Df(a)$ nie istnieje, $f$ nie jest różniczkowalne w $a$.
+
+
+\end{document}
