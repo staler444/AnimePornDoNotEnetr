@@ -11,7 +11,7 @@
 \usepackage[a4paper, total={7in, 10in}]{geometry}
 \usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
 
-\title{Analiza}
+\title{Analiza inf. II}
 \author{Bartosz Kucypera, bk439964}
 \date{\today}
 
@@ -38,7 +38,7 @@ Zbadać, czy $Df(a)$ istnieje dla $a=(0,0)$ i $a=(1,0)$.
 
 \subsection*{1) $a=(0,0)$}
 Niech $A$ będzie macieżą, pochodnych cząstkowych w punkcie $a$. \newline \newline 
-$Df(a)$ istnieje wtedy i tylko wtedy gdy,  $\displaystyle \lim_{h \to (0,0)} \frac{f(a+h)-f(a)-A \cdot h}{||h||} = 0$. Jeśli istnieje to $Df(a)$ = $A$. \newline
+$Df(a)$ istnieje wtedy i tylko wtedy gdy,  $\displaystyle \lim_{h \to (0,0)} \frac{f(a+h)-f(a)-A \cdot h}{||h||} = 0$. Jeśli istnieje, to $Df(a)$ = $A$. \newline
 
 Obliczmy $A$. Najepierw pochodna po $x$:
 $$ \lim_{h \to 0} \frac{f(h,0) - f(0, 0)}{h} = 
@@ -59,7 +59,7 @@ $$
 Dla każdego $v$ postaci $(v_1, 0)$, gdzie $v_1 \neq 0$, zachodzi
 $$ \frac{f(a+v)-f(a)- A \cdot v}{||v||} = \frac{\frac{v_1}{2} - \frac{v_1}{2}}{||v||} = 0 $$
 Teraz, podobnie dla każdego wektora $v$ postaci $(0, v_2)$ gdzie $v_2 \neq 0$, zachodzi
-$$ \frac{f(a+v)-f(a)- A \cdot v}{||v||} = \frac{\frac{\sqrt{1} - 1}{h_2}}{||h||} = 0$$
+$$ \frac{f(a+v)-f(a)- A \cdot v}{||v||} = \frac{\frac{\sqrt{1} - 1}{v_2}}{||v||} = 0$$
 Załóżmy więc, że obie współżędne wektora dążącego do $a$ są niezerowe. Wtedy
 $$ \lim_{h\to (0,0)} \frac{f(a+h) - f(a)-A \cdot h}{||h||} = 
 \lim_{h \to (0,0)} \frac{\frac{\sqrt{1+h_1h_2}-1}{h_2} - \frac{h_1}{2}}{||h||} = 
@@ -73,7 +73,7 @@ $$0 \le \left| \frac{o(h_1h_2)}{||h||} \right| \le \left| \frac{o(h_1h_2)}{2h_1h
 a 
 $$ \lim_{h \to (0,0)} \left| \frac{o(h_1h_2)}{2h_1h_2} \right| = 0, \mbox{ z definicji.} $$
 
-Czyli $f$ różniczkowalna w $a$, $Df(a)$ istnieje i jest równe $A$.
+Czyli $Df(a)$ istnieje i jest równe $A$.
 
 \subsection*{2) $a=(1,0)$}
 Tak samo jak wcześniej, wyliczamy macież $A$. \newline
@@ -93,12 +93,13 @@ $$ A =
 \end{bmatrix}
 $$
 
-Niech $a_n=(1+1/n,0)$, $a_n$ dąży do $a$. Zauważmy, że
-$$ \lim_{n \to \infty} \frac{f(a_n) - f(a) - A \cdot (a_n-a)}{||a_n-a||} = 
-\lim_{n \to \infty} \frac{\frac{1}{2n}-\frac{1}{2}-\frac{1}{2n}}{|\frac{1}{n^2}|} =
-\infty
+Niech $h_n=(0,-1 /n)$, $h_n$ dąży do $(0,0)$ gdy $n$ dąży do nieskończoności. Zauważmy, że
+$$ \lim_{n \to \infty} \frac{f(a+h_n) - f(a) - A \cdot h_n}{||h_n||} = 
+\lim_{n \to \infty} \frac{-\frac{1}{2} - \frac{1}{8n}}{\frac{1}{n^2}} =
+\lim_{n \to \infty} -\frac{1}{2}n^2 - \frac{1}{8}n =
+-\infty
 $$
-czyli $Df(a)$ nie istnieje, $f$ nie jest różniczkowalne w $a$.
+czyli $Df(a)$ nie istnieje.
 
 
 \end{document}
