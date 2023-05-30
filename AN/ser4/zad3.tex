@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza seria 4}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 3} 
+Załóżmy, że $a_n \ge 0$ dla $n\in \mathbb{Z}$, zaś szereg potęgowy $f(x) = \sum_{n=0}^{\infty}a_nx^n$ ma promień zbieżnosci $R=1$. Proszę udowodnić, że $\underbrace{\lim_{x \to 1^-}f(x)}_L$ istnieje wtedy i tylko wtedy gdy $\underbrace{\sum_{n=0}^{\infty}a_n < \infty}_R$.
+
+\subsection*{$R \to L$}
+Jeśli suma $f(1) = \sum_{n=0}^{\infty}a_n$ skończona, to z wniosku 8.30 w skrypcie, $f$ ciągła na $(-1,1]$, czyli granica $\lim_{x \to 1^-}f(x)$ niewątpliwie istnieje i jest równa $f(1)$.
+
+\subsection*{$L \to R$}
+Chcemy pokazać, że możemy przesunąć $\lim_{x \to 1^-}$ pod sumę i że wyrażenie się nie znieni. \newline
+
+Skoro $\displaystyle \lim_{x\to 1^-}f(x)$ istnieje to niech będzie równy $A$. \newline
+Niech $s_n$ będzie ciągiem sum częściowych, $s_n(x) = \sum_{k=0}^{n}a_nx^n$,
+$f$ szeregiem potęgowym, więc $s_n \rightrightarrows f$. \newline
+Chcemy wykazać, że $\displaystyle \lim_{n\to \infty} \lim_{x \to 1^-}s_n = A$. \newline
+Niech $\displaystyle g_n = \lim_{x\to 1^-}s_n$. Zauważmy, że $\forall x \in (-1,1)$ zachodzi
+$$|A-g_n| = |A - g_n + s_n(x) - s_n(x) + f(x) - f(x)| \le |A-f(x)| + |f(x)-s_n(x)| + |s_n(x)-g_n(x)| $$
+
+Niech $\delta_n = \frac{1}{n}$.
+\subsubsection*{1) $|A-f(x)|$}
+Z definicji $A$, $$\displaystyle \forall \epsilon>0 \; \; \exists n_0 \mbox{ takie, że } \forall x \in (-1,1) \mbox{ jeśli } |x-1|<\delta_{n_0}$$
+to 
+$$|A-f(x)| < \frac{\epsilon}{3} $$
+
+\subsubsection*{2) $|f(x)-s_n(x)|$}
+$s_n \rightrightarrows f$, więc również z definicji, $\forall \epsilon >0$ istnieje takie $n_1$, że
+$$\forall x \in (-1, 1) \; \forall n > n_1 \;\; |f(x)-s_n(x)| < \frac{\epsilon}{3}$$
+\subsubsection*{3) $|s_n(x) - g_n(x)|$}
+Z definicji $g_n$, $\forall \epsilon > 0$ istnieje takie $n_2$, że $\forall x\in (-1,1)$, jeśli
+
+$$|x-1| < \delta_{n_3}$$
+to 
+$$|s_n(x)-g_n(x)| < \frac{\epsilon}{3}$$
+
+\subsection*{Synteza}
+Teraz $\forall \epsilon > 0$ możemy dobrać takie $N = max(n_0, n_1, n_2)$ (z kolejnych podpunktów), że $\forall n>N$ zachodzi
+$$|A-g_n| \le \frac{\epsilon}{3} + \frac{\epsilon}{3} + \frac{\epsilon}{3} = \epsilon $$
+Czyli $g_n$, zbieżny do $A$ z definicji.
+
+
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza seria 4}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 2}
+Proszę znaleźć największą liczbę $R>0$ taką, że wzór
+$$f(x) = \sum_{n=0}^{\infty}\frac{x^{2n+1}}{(2n+1)!!}$$
+poprawnie definiuje funkcję ciągłą $f:(-R,R) \to \mathbb{R}$. Następnie proszę wykazać, że ta funkcja spełnia
+$$f'(x)=1+xf(x) \mbox{ dla } x\in (-R,R).$$
+
+\subsection*{Poszukiwania $R$}
+Albo mam jakiś błąd, albo taka liczb $R$ nie istnieje. Jak sie zaraz przekonamy (chyba) $f$ dobrze określona na całym $\mathbb{R}$. Zakładam, więc że może być $R=\infty$.
+
+Zauważmy, że:
+$$ f(x) = x\sum_{n=0}^{\infty} \frac{x^{2n}}{(2n+1)!!} = x\sum_{n=0}^{\infty} \frac{1}{(2n+1)!!}(x^2)^n $$
+Teraz badamy zbieżność szeregu potęgowego ze wzorów Cauchy'ego-Hadamara (8.7 w skrypcie):
+
+$$ \limsup_{n \to \infty} \sqrt[n]{\frac{1}{(2n+1)!!}} \le^* 
+\limsup_{n\to \infty} \sqrt[n]{\frac{1}{(2n)!!}} = \limsup_{n\to \infty} \frac{1}{2\sqrt[n]{n!}} = 0$$
+*ograniczamy z góry, bo najwyżej wyjdzie nam za mały promień zbierzności a i tak otrzymujemy całe $\mathbb{R}$ \newline
+
+Czyli szereg $\displaystyle \sum_{n=0}^{\infty} \frac{1}{(2n+1)!!}(x^2)^n$ zbieżny na całym $\mathbb{R}$ czyli $f(x)$ dobrze określona na całym $\mathbb{R}$.
+
+\subsection*{Wzór na pochodną}
+Skoro nasz szereg potęgowy jest już zbieżny na $\mathbb{R}$, to wiemy, że ma pochodne wszystkich rzędów, oraz że możemy je liczyć jak pochodne wielomianów, wyraz po wyrazie ( tw. 8.13 skrypt). \newline
+Zachodzi, więc następujący ciąg równości:
+
+$$ f'(x)=\sum_{n = 0}^{\infty}\left( \frac{x^{2n+1}}{(2n+1)!!} \right)' = 
+\sum_{n=0}^{\infty} \frac{(2n+1)x^{2n}}{(2n+1)!!} = 1 + x\sum_{n=1}^{\infty}\frac{x^{2n-1}}{(2n-1)!!} = 1+x\sum_{n=0}^{\infty}\frac{x^{2n+1}}{(2n+1)!!}=1+xf(x)$$
+Czyli faktycznie zachodzi $f'(x) = 1+xf(x)$
+
+\end{document}

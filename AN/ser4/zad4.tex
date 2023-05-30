@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza seria 4}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 4}
+Proszę wyznaczyć zbiór punktów zbieżności szeregu potęgowego
+$$\sum_{n=1}^{\infty} \frac{(-1)^n7^{n^3}}{\ln(n)}(\sinh x)^{2n^3}$$
+Niech $t = 7(\sinh x)^2$. Nasz szereg zapisuje się teraz jako:
+
+$$ \sum_{n=1}^{\infty}\frac{(-1)^n}{\ln(n)} t^{n^3}$$
+
+Zauważmy, że $t \ge 0$.\newline 
+\subsection*{1) $t > 1$}
+Jeśli $t>1$ to szereg oczywiście rozbieżny, bo nie spełnia warunku koniecznego.
+$$ \left| \frac{(-1)^n}{\ln(n)}t^{n^3} \right| \ge \left| \frac{t^n}{\ln(n)} \right| $$
+a $\displaystyle \lim_{n \to \infty} \frac{t^n}{\ln(n)} = \infty$ dla $t>1$.
+
+\subsection*{2) $t < 1$}
+Jeśli $t < 1$ to, badamy zbieżność bezwzględną. Zachodzi następująca nierówność:
+
+$$ \left| \frac{(-1)^n}{\ln(n)}t^{n^3} \right| \le \left| \frac{t^n}{\ln(n)} \right| $$
+
+a szereg
+$$\sum_{n=1}^{\infty} \left| \frac{t^n}{\ln(x)} \right| $$ szeregiem potęgowym o promieniu zbieżności $R = 1$ (szeregiem potęgowym zmiennej $t$), czyli zbieżny bezwzględnie dla $t<1$, czyli wyjściowy szereg też zbieżny bezwzględnie dla $t<1$ z kryterium porównawczego.
+
+\subsection*{3) $t = 1$}
+Jeśli $t =1$ to otrzymujemy szereg:
+$$ \sum_{n=1}^{\infty} \frac{(-1)^n}{\ln(n)}$$
+który natychmiast zbieżny z kryterium Leibniz'a.
+
+\newpage
+
+\subsection*{Odzyskanie zbioru punktów zbierzności}
+Musimy jeszcze tylko odzyskać, dla jakich $x$ szereg będzie zbieżny. Szereg zbieżny dla $x$ spełniającyh
+$$ 7\sinh(x)^2 \le 1$$
+czyli 
+$$|\sinh(x)| \le \frac{1}{\sqrt{7}}$$
+czyli
+$$\sinh(x) \in \left[ \frac{-1}{\sqrt{7}}, \frac{1}{\sqrt{7}} \right]$$
+czyli*
+$$ x \in \left[-\sinh^{-1}\left(\frac{1}{\sqrt{7}}\right), \sinh^{-1}\left(\frac{1}{\sqrt{7}}\right) \right] $$
+*bo $\sinh$ ściśle rosnący, oraz $\sinh^{-1}(-x) = -\sinh^{-1}(x)$ \newline
+czyli 
+$$ x \in \left[\frac{\ln7}{2}-\ln(2\sqrt{2}+1), \ln(2\sqrt{2}+1)-\frac{\ln7}{2} \right]$$
+
+\end{document}

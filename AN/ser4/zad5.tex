@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza seria 4}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 5} 
+Niech $-\infty < a < b < \infty$ oraz $f,g:(a,b) \to \mathbb{R}$ będą analityczne. Proszę wykazać, że funkcja $f \cdot g$ też jest analityczna.
+
+\subsection*{}
+Bez straty ogólności, możemy założyć, że $f,g:I \to \mathbb{R}$, dla $I= (-1,1)$, bo możemy zawsze wykorzystać podstawienie liniowe $\displaystyle t = \frac{x-\frac{b-a}{2}}{\frac{b-a}{2}}$. \newline
+
+Rozwińmy, więc $f$ i $g$ w 0.
+$$f(x) = \sum_{n=0}^{\infty}a_nx^n, \; g(x) = \sum_{n=0}^{\infty}b_nx^n$$
+Niech $A_N$ i $B_N$ będą sumami cześciowymi odpowiednio, szeregu potęgowego $f$ i $g$.
+$$A_N(x) = \sum_{n=0}^{N}a_nx^n, \; B_N(x) = \sum_{n=0}^{N}b_nx^n$$
+Niech $c_n$ będzie iloczynem Cauchy'ego szeregów $\sum_{k=0}^{n}a_k$, $\sum_{k=0}^{n}b_k$
+$$c_n = \sum_{k=0}^{n}a_{n-k}b_k$$
+Chcemy pokazać, że 
+$$f(x) \cdot g(x) = \sum_{n=0}^{\infty}c_nx^n$$
+Niech
+$$C_N(x) = \sum_{n=0}^{N}c_nx^n$$
+
+Teraz, ponieważ $f$ i $g$ dobrze określone na $I$, to $f \cdot g$ również.
+Czyli $\forall x \in I$ $\lim_{N \to \infty} A_N(x) \cdot B_N(x)$ istnieje i jest równy $f(x)\cdot g(x)$. \newline
+
+\newpage
+
+Zbadajmy teraz granicę
+
+$$ \lim_{N \to \infty} |A_N(x) \cdot B_N(x) - C_N(x)| \mbox{ dla } x\in I$$
+Zauważmy, że:
+$$\left| A_N(x)\cdot B_N(x) - C_N(x) \right| \le 
+\sum_{n>N/2}^{\infty}\left|a_nx^n\right|\cdot\sum_{n=0}^{\infty}|b_nx^n| + 
+\sum_{n>N/2}^{\infty}\left|b_nx^n\right|\cdot\sum_{n=0}^{\infty}|a_nx^n|
+$$
+Przy czym szeregi
+$$\sum_{n=0}^{\infty}|a_nx^n| \mbox{, } \sum_{n=0}^{\infty}|b_nx^n|$$
+oczywiście zbieżne bo szeregi potęgowe, zbieżne bezwzględnie wewnątrz przedziału zbierzności, (mogą być zbieżne warunkowo tylko na krańcach). \newline
+Tak samo, ponieważ szeregi są zbieżne, to "ogony" 
+$$\sum_{n>N/2}^{\infty}|a_nx^n| \mbox{ , } \sum_{n>N/2}^{\infty}|b_nx^n|$$
+muszą zbiegać do 0, gdy $N\to\infty$, czyli zachodzi:
+
+$$ \lim_{N \to \infty} \sum_{n>N/2}^{\infty}|a_nx^n| = \lim_{N\to \infty} \sum_{n>N/2}^{\infty}|b_nx^n| = 0$$
+
+Czyli dla każdego $x\in I$, mamy
+
+$$ \lim_{N\to \infty} \left(
+\sum_{n>N/2}^{\infty}\left|a_nx^n\right|\cdot\sum_{n=0}^{\infty}|b_nx^n| + 
+\sum_{n>N/2}^{\infty}\left|b_nx^n\right|\cdot\sum_{n=0}^{\infty}|a_nx^n| \right) 
+= 0
+$$
+czyli wnioskujemy, że:
+
+$$\lim_{N\to\infty}\left| A_N(x)\cdot B_N(x) - C_N(x) \right| = 0$$
+czyli faktycznie 
+$$\lim_{N\to\infty}C_N(x)$$ istnieje i zachodzi
+
+$$\sum_{n=0}^{\infty}c_nx^n = \lim_{N\to\infty}C_N(x) = \lim_{N\to\infty}A_N(x)\cdot B_N(x) = 
+\sum_{n=0}^{\infty}a_nx^n \cdot \sum_{n=0}^{\infty}b_nx^n = f(x)\cdot g(x)$$
+dla wszystkich $ x\in I$. Czyli $f \cdot g$ analityczna na $I$.
+
+\end{document}
