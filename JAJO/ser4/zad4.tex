@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{JAO Praca domowa}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 4}
+Dla danej formuły zdaniowej $\varphi$ w postaci CNF i wartościowania $v$ określamy score$(\varphi, v)$ jako maksymalną liczbę $k$ taką, że w każdej klauzuli formuły $\varphi$ jest conajmniej $k$ literałów, które są prawdziwe przy wartościowaniu $v$. \newline
+Udowodnić, że problem jest NP-zupełny:
+\subsection*{Dane:}
+Formuła $\varphi$.
+\subsection*{Pytanie:}
+Czy istnieje wartościowanie $v$ takie, że $3\le$ score$(\varphi, v) \le 5$.
+
+\subsection*{}
+sprowadzić* - sprowadzić w czasie wielomianowym \newline
+Zauważmy, że sprowadzanie* jednego problemu do drugiego to relacja przechodnia. Jeśli jesteśmy wstanie problem A sprowadzić* do B, i B do C, to jesteśmy wstanie sprowadzić* A do C. \newline 
+Skoro do problemów NP-zupełnych jesteśmy wstanie sprowadzić* wszystkie innne problemy NP, to jeśli jakiś problem NP-zupełny sporwadzimy* do naszego problemu, to z przechodniości sprowadzania*, każdy problem NP będzie można sprowadzić* do naszego, czyli z definicji, nasz problem też będzie NP-zupełny.\newline
+
+Sprowadźmy w takim razie problem 3CNFSAT do naszego problemu. \newline \newline
+literał - zmienna lub negacja zmiennej \newline
+klauzula - alternatywa literałów \newline
+formuła - koniunkcja klauzul \newline
+
+3CNFSAT to problem, sparwdzenia spełnialności formuły postaci CNF, gdzie każda klauzula ma do 3 literałów.
+
+Niech $\varphi$ formułą takiej postaci. \newline
+Przekształćmy formułę $\varphi$ do $\varphi'$ w następujący sposób.
+Niech $\alpha$ i $\beta$ nowymi zmiennymi niewystępującymi jeszcze w $\varphi$. Do każdej klauzuli
+$\varphi$ dodajemy literały $\alpha$, $\beta$, $\neg \alpha$, $\neg \beta$. \newline \newline
+Formuła $\varphi'$ ma następujące własności: 
+/* dla danego wartościowania */ \newline \newline
+Każda klauzlua $\varphi'$ ma co najwyżej pięć prawdziwych literałów. \newline
+Każda klauzula $\varphi'$ ma co najmniej dwa prawdziwe literały. \newline
+Klauzula z $\varphi'$ ma dwa prawdziwe literały, wtedy i tylko wtedy kiedy oryginalna klauzula z $\varphi$ była niespełniona (z czterech dodanych przez nas literałów zawsze dwa są prawdziwe, jeśli więc cała klauzula ma tylko dwa prawdziwe literały, to znaczy że wszystkie stare, zklauzuli z $\varphi$ są fałszywe).
+
+Zauważmy, że istnienie wartościowania $v'$, takiego, że $3 \le$ score$(\varphi', v') \le 5$
+jest równoważne spełnialności formuły $\varphi$. \newline
+
+\newpage
+\subsection*{Istnienie $v' \to$ spełnialność $\varphi$}
+Skoro przy wartościowaniu $v'$ formuła $\varphi'$ ma score $\ge3$ to znaczy, że w każdej klauzli przynajmniej jeden z oryginalnych literałów z klauzuli z $\varphi$ jest prawdziwy, czyli jeśli z wartościowania $v'$ usuniemy $\alpha$ i $\beta$ to otrzymane wartościowanie $v$ będzie spełniać formułę $\varphi$.
+
+\subsection*{Spełnialość $\varphi \to$ Istnienie $v'$}
+Niech $v$ będzie wartościowaniem spełniającym $\varphi$. Wystarczy, że rozszerzymy je o $\alpha$ i $\beta$ z dowolnymi wartościami, i każda klauzula z $\varphi'$ bedzie miała score$\ge3$.
+Z pośród czterech dodanych literałów, zawsze dwa są prawdziwe a skoro $v$ spełniało $\varphi$ to w każdej klauzuli $\varphi'$ przynajmniej jeden z oryginalnych literałów z $\varphi$ jest prawdziwy, czyli score jest przynajmniej 3, (nie może być większy od 5) więc zachodzi $3\le$ score$(\varphi', v)\le5$.
+
+\subsection*{Synteza}
+Skoro potrafimy problem 3CNFSAT przekształcić do naszego w czasie wielomianowym, (konstrukcje $\varphi'$ z $\varphi$ wykonuje się w czasie liniowym) to nasz problem też jest NP-zupełny.
+
+
+
+
+\end{document}:
