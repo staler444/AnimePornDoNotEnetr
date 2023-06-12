@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza seria 5}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 5}
+Niech $0 < a < b < \infty$ oraz $f:[0,1] \to \mathbb{R}$ będzie funkcją ciągłą. Obliczyć granicę
+$$\lim_{\epsilon \to 0^+} \int_{a\epsilon}^{b\epsilon}\frac{f(x)}{x}dx$$
+Zauważmy, że dla dowolnego $\epsilon_1>0$, możemy dobrać tak mały $\epsilon_0>0$, że $\forall \epsilon, 0<\epsilon<\epsilon_0$ zachodzi:
+$$\int_{a\epsilon}^{b\epsilon}\frac{f(0)-\epsilon_1}{x}dx \le 
+\int_{a\epsilon}^{b\epsilon}\frac{f(x)}{x}dx \le 
+\int_{a\epsilon}^{b\epsilon}\frac{f(0)+\epsilon_1}{x}dx,$$
+bo $f$ ciągła prawostronnie w 0, czyli jeśli $a\epsilon$ i $b\epsilon$ dostatecznie małe, to $\forall x\in[a\epsilon, b\epsilon], |f(x)-f(0)| < \epsilon_1$.\\
+Teraz zauważmy, że:
+$$\int_{a\epsilon}^{b\epsilon}\frac{f(0)\pm\epsilon_1}{x}dx = (f(0)\pm\epsilon_1)\int_{a\epsilon}^{b\epsilon}\frac{dx}{x} = (f(0)\pm\epsilon_1)(\ln(b\epsilon) - \ln(a\epsilon)) = (f(0)\pm\epsilon_1)(\ln(b)-\ln(a)) $$
+Czyli teraz dla dowolonego $\epsilon_2$ możemy dobrać $\epsilon_1 = \frac{\epsilon_2}{\ln(b)-\ln(a)}$ i do tego $\epsilon_1$ taki $\epsilon_0$, że $\forall \epsilon, 0 < \epsilon < \epsilon_0$, zachodzi:
+$$\left| \int_{a\epsilon}^{b\epsilon}\frac{f(x)}{x}dx - \int_{a\epsilon}^{b\epsilon} \frac{f(0)}{x}dx\right| = 
+\left| \int_{a\epsilon}^{b\epsilon}\frac{f(x)}{x}dx - f(0)(\ln(b)-\ln(a)) \right| \le 
+\epsilon_1(\ln(b)-\ln(a)) = \epsilon_2$$
+Czyli z definicji zbieżności Cauchy'ego, 
+$$\lim_{\epsilon\to0^+} \int_{a\epsilon}^{b\epsilon}\frac{f(x)}{x}dx = f(0)\ln\left(\frac{b}{a}\right)$$
+\end{document}

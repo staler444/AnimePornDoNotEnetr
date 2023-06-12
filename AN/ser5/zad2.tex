@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza seria 5}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 2} 
+Proszę obliczyć całki i formalnie uzasadnić otrzymany wynik
+
+$$ a) \int_{-1}^1 \frac{x^7-3x^5 +7x^3-x}{\cos^2(x)}dx \mbox{ oraz } 
+b) \int_{-\pi/3}^{\pi/3}x^{10}\sin ^9(x)dx $$
+
+\section*{a)}
+Niech $f:[-1,1] \to \mathbb{R}$ dana wzorem $f(x) = \frac{x^7-3x^5+7x^3-x}{\cos^2(x)}$. \\
+Zauważmy, że $f(x) = -f(-x)$, bo $\cos^2(-x) = \cos^2(x)$ a licznik jest wielomianem o niezerowych współczynnikach tylko przy nieparzystych potęgach $x$. \\
+Rozbijamy całkę na dwie części:
+
+$$\int_{-1}^{1}f(x)dx = \int_{-1}^0f(x)dx + \int_0^1f(x)dx$$
+Podstawiamy $t = -x$ w pierwszej całce:
+
+$$\int_{-1}^0f(x)dx + \int_0^1f(x)dx = -\int_1^0f(-t)dt + \int_0^1f(x)dx = -\int_0^1-f(-t)dt + \int_0^1f(x)dx$$ 
+Korzystamy z tego, że $-f(-t) = f(t)$:
+$$-\int_0^1-f(-t)dt + \int_0^1f(x)dx = -\int_0^1f(t)dt + \int_0^1f(x)dx = 0$$
+
+\section*{b)}
+Robimy dokładnie to samo co w a). \\
+Niech $f:[-\pi/3, \pi/3] \to \mathbb{R}$ dana wzorem $f(x) = x^{10}\sin^9(x)$. \\
+Zauważmy, że $f(x) = -f(-x)$, bo $(-x)^{10} = x^{10}$ a $\sin$ jest nieparzysty, więc $\sin^9$ też. \\
+Rozbijamy całkę:
+$$ \int_{-\pi/3}^{\pi/3}f(x)dx = \int_{-\pi/3}^{0}f(x)dx + \int_{0}^{\pi/3}f(x)dx$$
+Podstawaimy $t=-x$ w pierwszej całce:
+$$\int_{-\pi/3}^{0}f(x)dx + \int_{0}^{\pi/3}f(x)dx = -\int_0^{\pi/3}-f(-t)dt + \int_0^{\pi/3}f(x)dx$$
+Korzystamy z tego, że $-f(-x) = f(x)$:
+$$-\int_0^{\pi/3}-f(-t)dt + \int_0^{\pi/3}f(x)dx = -\int_0^{\pi/3}f(t)dt + \int_0^{\pi/3}f(x)dx = 0$$
+
+\end{document}

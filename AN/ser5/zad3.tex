@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Analiza seria 5}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 3}
+Niech $n$ bedzie dodatnią liczbą całkowitą. Udowodnić oszacowania 
+$$\frac{n^2\pi}{4} \le \sum_{k=0}^n\sqrt{n^2-k^2} \le \frac{n^2\pi}{4} + n$$
+Zacznijmy od podzielenia wszystkiego przez $n^2$.
+$$\frac{\pi}{4} \le \sum_{k=0}^{n}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2} \le \frac{\pi}{4} + \frac{1}{n}$$
+Zauważmy jeszcze, że $$\sum_{k=0}^{n}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2} = 
+\sum_{k=0}^{n-1}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2}$$ i już wiemy co się święci.
+$$\lim_{n\to \infty}\frac{1}{n}\sum_{k=0}^{n-1}\sqrt{1-\left(\frac{k}{n}\right)^2} = \int_0^1\sqrt{1-x^2}, \mbox{ (całka Riemanna),}$$ 
+a funkcja podcałkowa ściśle malejąca na $[0, 1]$, więc łatwo uzyskamy nasze nierówności. \\
+Możemy też odrazu pokazać, że $\int_0^1\sqrt{1-x^2} = \frac{\pi}{4}$. \\
+Z przykładu 9.23 w skrypcie wiemy, że $\int\sqrt{1-x^2} = \frac{1}{2}(\arcsin(x) + x\sqrt{1-x^2}) +C$, \\
+czyli $\int_0^1\sqrt{1-x^2} = \frac{1}{2}(\arcsin(1/2) - \arcsin(0)) = \frac{\pi}{4}$. \\
+
+\section*{Lewa nierówność}
+Wynika odrazu z interpreatacji geometrycznej całki. \\
+$\displaystyle \frac{\pi}{4} = \int_0^1\sqrt{1-x^2}$. \\
+Interpretujemy $\displaystyle \sum_{k=0}^{n-1}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)}$ jako sume częściową Riemanna.
+Dzielimy odcinek $[0, 1]$ na $n$ odcinków każdy długości $\frac{1}{n}$ i liczymy pole 
+prostokątów o podstawie równej długości przedziału ($\frac{1}{n}$) i wysokości równej wartości funkcji $\sqrt{1-x^2}$ w lewym krańcu każdego przedziału. Skoro funkcja $\sqrt{1-x^2}$ ściśle malejąca na $[0, 1]$
+to obliczone przez nas pole, będzie większe całki. \\
+Czyli zachodzi:
+$$ \frac{n^2 \pi}{4} \le \sum_{k=0}^{n}\sqrt{n^2-k^2}$$
+\section*{Prawa nierówność}
+Przerzucamy $\frac{1}{n}$ na lewą stronę nierówności. \\
+$$\sum_{k=0}^{n-1}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2}-\frac{1}{n} = \sum_{k=1}^{n}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2}$$
+Czyli mamy to samo co wcześniej, tylko teraz wyskość każdego prostokąta to wartość $\sqrt{1-x^2}$ w prawym krańcu odcinka, a skoro $\sqrt{1-x^2}$ ściśle malejąca na $[0, 1]$ to nasza suma będzie mniejsza od całki.\\
+Czyli zachodzi:
+$$ \sum_{k=0}^{n}\sqrt{n^2-k^2} \le \frac{n^2 \pi}{4} + n$$
+
+\end{document}
