@@ -19,6 +19,18 @@
 
 \maketitle
 
-\section*{Zadanie 1} 
+\section*{Zadanie 4}
+Niech $f : [0,1] \to (0,\infty)$ będzie funkcją ciągłą. Obliczyć całkę
+$$\int_0^1\frac{f(x)}{f(x)+f(1-x)}dx$$
+Zauważmy, że:
+
+$$\int_0^1\frac{f(x)}{f(x)+f(1-x)}dx = \int_0^1\frac{f(x) + f(1-x) - f(1-x)}{f(x) + f(1-x)}dx
+= \int_0^11 - \int_0^1\frac{f(1-x)}{f(x)+f(1-x)}dx$$
+Podstawaiamy do prawej całki $t=1-x$:
+$$\int_0^11 - \int_0^1\frac{f(1-x)}{f(x)+f(1-x)} = 1 - \int_1^0\frac{-f(t)}{f(1-t)+f(t)}dt= 1 - \int_0^1\frac{f(t)}{f(1-t)+f(t)}dt$$
+Czyli po przeniesieniu całki spowrotem na lewą stronę równości, otrzymujemy:
+$$2\int_0^1\frac{f(x)}{f(x)+f(1-x)}dx = 1$$
+czyli
+$$\int_0^1\frac{f(x)}{f(x)+f(1-x)}dx = \frac{1}{2}$$
 
 \end{document}
