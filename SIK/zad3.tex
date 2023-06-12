@@ -21,14 +21,17 @@
 \maketitle
 
 \section*{Logiczne połączenie ruterów}
-Załóżmy, że serwery dns są w sieci razem z R12. \newline
+Załóżmy, że serwery dns są razem w sieci tylko z R12. \newline
 Załóżmy, że pierwsza sieć przez którą idą pakiety z R13 do eagle-a to 208.42.42.0/24. \newline
 Załóżmy, że pierwsza sieć przez którą idą pakiety z R14 do kestrel-a to 209.42.42.0/24. \newline
+Przydzielamy jakiekolwiek interfejsy (z komend w treści nie wynika gdzie jakie mają być). \\
+Brakujące adresy ip przydzielamy dająć interfejsom R12 mniejszy adres, reszcie większy. \\
 
 \includegraphics[width=\linewidth]{sieci.png}
 \newpage
 
 \section*{Fragment tablicy tras rutera R12}
+Fragment tablicy tras rutera do znanych nam elementów sieci. \\
 \begin{tabularx}{0.8\textwidth} { 
   | >{\raggedright\arraybackslash}X 
   | >{\centering\arraybackslash}X 
@@ -41,15 +44,21 @@ Załóżmy, że pierwsza sieć przez którą idą pakiety z R14 do kestrel-a to 
 	\hline
  	209.85.127.0 & 255.255.255.0 & eth1 & 0.0.0.0 \\
 	\hline
+	207.13.56.91 & 255.255.255.0 & eth1 & 209.85.127.100 \\
+	\hline
 	222.67.1.0 & 255.255.255.0 & eth1 & 209.85.127.100 \\
  	\hline
 	64.0.0.0 & 255.0.0.0 & eth2 & 0.0.0.0 \\
 	\hline
 	25.0.0.0 & 255.0.0.0 & eth2 & 64.157.174.44 \\
 	\hline
+	208.42.42.0 & 255.255.255.0 & eth2 & 64.157.174.44 \\
+	\hline
 	72.0.0.0 & 255.0.0.0 & eth3 & 0.0.0.0 \\
 	\hline
 	193.19.88.0 & 255.255.255.0 & eth3 & 72.12.47.61 \\
+	\hline
+	209.42.42.1 & 255.255.255.0 & eth3 & 72.12.47.61 \\
 \hline
 \end{tabularx}
 
@@ -90,20 +99,20 @@ traceroute to pigeon.zad3sik.edu.pl (222.67.1.27), 30 hops max, 60 byte packets 
 
 \newpage
 \section*{Plik zad3.sik.edu.pl}
-\$ TTL 1h
-@ IN SOA ns.zad3sik.edu.pl. bk439964.zad3sik.edu.pl. ( \\
+\$TTL 1h
+@ IN SOA ns1.zad3sik.edu.pl. bk439964.mimuw.edu.pl. ( \\
 \hspace*{3cm}1 ; Serial \\
 \hspace*{3cm}604800 ; Refresh \\
 \hspace*{3cm}86400 ; Retry \\
 \hspace*{3cm}2419200 ; Expire\\
 \hspace*{3cm}604800) ; Negative Cache TTL\\
 
-@ \hspace{4cm} IN NS ns1.zad3sik.edu.pl. \\
-@ \hspace{4cm} IN NS ns2.zad3sik.edu.pl. \\
+\hspace{4cm} IN NS ns1.zad3sik.edu.pl. \\
+\hspace*{4cm} IN NS ns2.zad3sik.edu.pl. \\
 \\
 ns1 \hspace{3.8cm} IN A 142.27.28.98\\
 ns2 \hspace{3.8cm} IN A 142.27.28.99 \\
-R11 \hspace{3.7cm} IN A 209.85.10.100 \\
+R11 \hspace{3.7cm} IN A 209.85.127.100 \\
 R11 \hspace{3.7cm} IN A 207.13.56.91 \\
 R12 \hspace{3.7cm} IN A 142.27.28.97 \\
 R12 \hspace{3.7cm} IN A 209.85.127.99 \\

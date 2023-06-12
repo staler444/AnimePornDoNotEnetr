@@ -28,16 +28,18 @@ Formuła $\varphi$.
 Czy istnieje wartościowanie $v$ takie, że $3\le$ score$(\varphi, v) \le 5$.
 
 \subsection*{}
-sprowadzić* - sprowadzić w czasie wielomianowym \newline
-Zauważmy, że sprowadzanie* jednego problemu do drugiego to relacja przechodnia. Jeśli jesteśmy wstanie problem A sprowadzić* do B, i B do C, to jesteśmy wstanie sprowadzić* A do C. \newline 
-Skoro do problemów NP-zupełnych jesteśmy wstanie sprowadzić* wszystkie innne problemy NP, to jeśli jakiś problem NP-zupełny sporwadzimy* do naszego problemu, to z przechodniości sprowadzania*, każdy problem NP będzie można sprowadzić* do naszego, czyli z definicji, nasz problem też będzie NP-zupełny.\newline
+sprowadzić* - sprowadzić w czasie wielomianowym \newline \newline 
+Problem jest NP-zupełny jeśli: jest NP, każdy inny problem NP możemy do niego sprowadzić*. \newline
+Nasz problem oczywiście jest NP, bo dla każdej formuły i wartościowania możemy w liniowym czasie wyliczyć score i sprawdzić czy faktycznie zachodzi $3 \le score \le 5$. \newline \newline
+Zauważmy, że sprowadzanie* jednego problemu do drugiego to relacja przechodnia. Jeśli jesteśmy w stanie problem A sprowadzić* do B, i B do C, to jesteśmy w stanie sprowadzić* A do C. \newline 
+Skoro do problemów NP-zupełnych jesteśmy w stanie sprowadzić* wszystkie innne problemy NP, to jeśli jakiś problem NP-zupełny sporwadzimy* do naszego problemu, to z przechodniości sprowadzania*, każdy problem NP będzie można sprowadzić* do naszego.\newline
 
-Sprowadźmy w takim razie problem 3CNFSAT do naszego problemu. \newline \newline
+Sprowadźmy* w takim razie problem 3CNFSAT do naszego problemu. \newline \newline
 literał - zmienna lub negacja zmiennej \newline
 klauzula - alternatywa literałów \newline
 formuła - koniunkcja klauzul \newline
 
-3CNFSAT to problem, sparwdzenia spełnialności formuły postaci CNF, gdzie każda klauzula ma do 3 literałów.
+3CNFSAT to problem, sparwdzenia spełnialności formuły w postaci CNF, gdzie każda klauzula ma do 3 literałów.
 
 Niech $\varphi$ formułą takiej postaci. \newline
 Przekształćmy formułę $\varphi$ do $\varphi'$ w następujący sposób.
@@ -45,15 +47,14 @@ Niech $\alpha$ i $\beta$ nowymi zmiennymi niewystępującymi jeszcze w $\varphi$
 $\varphi$ dodajemy literały $\alpha$, $\beta$, $\neg \alpha$, $\neg \beta$. \newline \newline
 Formuła $\varphi'$ ma następujące własności: 
 /* dla danego wartościowania */ \newline \newline
-Każda klauzlua $\varphi'$ ma co najwyżej pięć prawdziwych literałów. \newline
-Każda klauzula $\varphi'$ ma co najmniej dwa prawdziwe literały. \newline
-Klauzula z $\varphi'$ ma dwa prawdziwe literały, wtedy i tylko wtedy kiedy oryginalna klauzula z $\varphi$ była niespełniona (z czterech dodanych przez nas literałów zawsze dwa są prawdziwe, jeśli więc cała klauzula ma tylko dwa prawdziwe literały, to znaczy że wszystkie stare, zklauzuli z $\varphi$ są fałszywe).
+Każda klauzlua $\varphi'$ ma co najwyżej pięć prawdziwych literałów. (z dodanych 4 literałów, zawsze 2 są prawdziwe a starych było nie więcej niż 3, czyli prawdziwych mamy nie więcej niż 5). \newline \newline
+Każda klauzula $\varphi'$ ma co najmniej dwa prawdziwe literały. (analogicznie jak powyżej)\newline 
+Klauzula $\varphi'$ ma dwa prawdziwe literały, wtedy i tylko wtedy kiedy oryginalna klauzula z $\varphi$ była niespełniona (z czterech dodanych przez nas literałów zawsze dwa są prawdziwe, jeśli więc cała klauzula ma tylko dwa prawdziwe literały, to znaczy że wszystkie stare, z klauzuli z $\varphi$ są fałszywe).
 
 Zauważmy, że istnienie wartościowania $v'$, takiego, że $3 \le$ score$(\varphi', v') \le 5$
 jest równoważne spełnialności formuły $\varphi$. \newline
 
-\newpage
-\subsection*{Istnienie $v' \to$ spełnialność $\varphi$}
+\subsection*{Istnienie $v' \to$ Spełnialność $\varphi$}
 Skoro przy wartościowaniu $v'$ formuła $\varphi'$ ma score $\ge3$ to znaczy, że w każdej klauzli przynajmniej jeden z oryginalnych literałów z klauzuli z $\varphi$ jest prawdziwy, czyli jeśli z wartościowania $v'$ usuniemy $\alpha$ i $\beta$ to otrzymane wartościowanie $v$ będzie spełniać formułę $\varphi$.
 
 \subsection*{Spełnialość $\varphi \to$ Istnienie $v'$}
@@ -61,7 +62,7 @@ Niech $v$ będzie wartościowaniem spełniającym $\varphi$. Wystarczy, że rozs
 Z pośród czterech dodanych literałów, zawsze dwa są prawdziwe a skoro $v$ spełniało $\varphi$ to w każdej klauzuli $\varphi'$ przynajmniej jeden z oryginalnych literałów z $\varphi$ jest prawdziwy, czyli score jest przynajmniej 3, (nie może być większy od 5) więc zachodzi $3\le$ score$(\varphi', v)\le5$.
 
 \subsection*{Synteza}
-Skoro potrafimy problem 3CNFSAT przekształcić do naszego w czasie wielomianowym, (konstrukcje $\varphi'$ z $\varphi$ wykonuje się w czasie liniowym) to nasz problem też jest NP-zupełny.
+Skoro nasz problem jest w NP, oraz potrafimy 3CNFSAT przekształcić do naszego problemu w czasie wielomianowym, (konstrukcje $\varphi'$ z $\varphi$ wykonuje się w czasie liniowym) to nasz problem jest NP-zupełny.
 
 
 
