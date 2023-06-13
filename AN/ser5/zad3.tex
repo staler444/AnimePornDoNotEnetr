@@ -30,20 +30,22 @@ $$\lim_{n\to \infty}\frac{1}{n}\sum_{k=0}^{n-1}\sqrt{1-\left(\frac{k}{n}\right)^
 a funkcja podcałkowa ściśle malejąca na $[0, 1]$, więc łatwo uzyskamy nasze nierówności. \\
 Możemy też odrazu pokazać, że $\int_0^1\sqrt{1-x^2} = \frac{\pi}{4}$. \\
 Z przykładu 9.23 w skrypcie wiemy, że $\int\sqrt{1-x^2} = \frac{1}{2}(\arcsin(x) + x\sqrt{1-x^2}) +C$, \\
-czyli $\int_0^1\sqrt{1-x^2} = \frac{1}{2}(\arcsin(1/2) - \arcsin(0)) = \frac{\pi}{4}$. \\
+czyli $\int_0^1\sqrt{1-x^2} = \frac{1}{2}(\arcsin(1) - \arcsin(0)) = \frac{\pi}{4}$. \\
 
 \section*{Lewa nierówność}
 Wynika odrazu z interpreatacji geometrycznej całki. \\
 $\displaystyle \frac{\pi}{4} = \int_0^1\sqrt{1-x^2}$. \\
-Interpretujemy $\displaystyle \sum_{k=0}^{n-1}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)}$ jako sume częściową Riemanna.
+Interpretujemy $\displaystyle \sum_{k=0}^{n-1}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)}$ jako sumę częściową Riemanna.
 Dzielimy odcinek $[0, 1]$ na $n$ odcinków każdy długości $\frac{1}{n}$ i liczymy pole 
 prostokątów o podstawie równej długości przedziału ($\frac{1}{n}$) i wysokości równej wartości funkcji $\sqrt{1-x^2}$ w lewym krańcu każdego przedziału. Skoro funkcja $\sqrt{1-x^2}$ ściśle malejąca na $[0, 1]$
-to obliczone przez nas pole, będzie większe całki. \\
+to obliczone przez nas pole, będzie większe od całki. \\
 Czyli zachodzi:
 $$ \frac{n^2 \pi}{4} \le \sum_{k=0}^{n}\sqrt{n^2-k^2}$$
 \section*{Prawa nierówność}
 Przerzucamy $\frac{1}{n}$ na lewą stronę nierówności. \\
-$$\sum_{k=0}^{n-1}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2}-\frac{1}{n} = \sum_{k=1}^{n}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2}$$
+Zachodzi:
+$$\sum_{k=0}^{n-1}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2}-\frac{1}{n} = \sum_{k=1}^{n}\frac{1}{n}\sqrt{1-\left(\frac{k}{n}\right)^2},$$
+bo, wyraz dla $k=0$ zjada się z $-\frac{1}{n}$ a wyraz dla $k=n$ jest zerowy, więc możemy go sobie dodać. \\
 Czyli mamy to samo co wcześniej, tylko teraz wyskość każdego prostokąta to wartość $\sqrt{1-x^2}$ w prawym krańcu odcinka, a skoro $\sqrt{1-x^2}$ ściśle malejąca na $[0, 1]$ to nasza suma będzie mniejsza od całki.\\
 Czyli zachodzi:
 $$ \sum_{k=0}^{n}\sqrt{n^2-k^2} \le \frac{n^2 \pi}{4} + n$$

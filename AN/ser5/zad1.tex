@@ -35,7 +35,8 @@ Zauważmy, że
 $$\int_a^bc \cdot \sin(nx)dx = \int_{a}^{d} c \cdot \sin(nx)dx + \int_{d}^{b}c \cdot \sin(nx)dx $$
 gdzie $d-a$ największą wielokrotnością okresu $\sin(nx)$, mniejszą od $b-a$.
 Zachodzi, więc następujący ciąg równości i nierówności
-$$\int_a^b c \cdot \sin(nx)dx = \int_a^d c \cdot \sin(nx)dx + \int_d^b c \cdot \sin(nx)dx \le (b-d)\cdot c \le \frac{2\pi}{n}c $$
+$$\left|\int_a^b c \cdot \sin(nx)dx \right|= \left|\int_a^d c \cdot \sin(nx)dx + \int_d^b c \cdot \sin(nx)dx \right|
+\le \left|(b-d)\cdot c \right|\le \left|\frac{2\pi}{n}c \right|$$
 bo $b-d$ mniejsze równe od okresu $\sin(nx)$, czyli $\frac{2\pi}{n}$. \newline
 
 Mamy więc, 
@@ -56,14 +57,14 @@ Niech funkcja $g_{\epsilon}$, $g_{\epsilon}: \mathbb{R} \to \mathbb{R}$, zdefini
 Niech $\delta$ taka, że $\forall x,y \in [0,2\pi]$ jeśli $|x-y| < \delta$ to $|f(x) - f(y)| < \frac{\epsilon}{2\pi} \cdot \frac{1}{2}$. Taka $\delta$ istnie, bo $f(x)$ jest ciągła, przedział
 $[0, 2\pi]$ domknięty, czyli $f(x)$ ciągła jednostajnie na $[0, 2\pi]$.
 
-Teraz dzielimy $[0, 2\pi]$ na przedziały długości $\delta$ (jak $\delta$ nie dzieli $2\pi$, to ostatni krótszy) i na każdym przedziale postaci $[k\delta, (k+1)\delta)$, (lub jakiś ostatni postaci $[k\delta, 2\pi]$), ustalamy $g_{\epsilon}(x) = f(k\delta)$ dla $x\in [k\delta, (k+1)\delta)$, (analogicznie dla tego ostatniego).
+Teraz dzielimy $[0, 2\pi]$ na przedziały długości $\delta$ (jak $\delta$ nie dzieli $2\pi$, to ostatni krótszy) i na każdym przedziale postaci $[k\delta, (k+1)\delta)$, (lub jakiś ostatni postaci $[k\delta, 2\pi]$), ustalamy $g_{\epsilon}(x) = f(k\delta)$ dla $x\in [k\delta, (k+1)\delta)$, (analogicznie dla tego ostatniego, krótszego, przedziału).
 
 Dzięki takiej konstrukcji, $g_{\epsilon}$ ma następujące, przydatne, własności:
 
 \subsection*{1)}
 
 $$ \lim_{n\to\infty}\int_0^{2\pi}g_{\epsilon}(x)\sin(nx)dx = 0$$
-dla ustalonego $\epsilon$. $g_{\epsilon}$ stała na stałej liczbie przedzaiłów, do każdego przedziału przykładamy $Lemacik$.
+dla ustalonego $\epsilon$, $g_{\epsilon}$ stała przedziałami, do każdego takiego przedziału przykładamy $Lemacik$.
 \subsection*{2)}
 $$ \left| \int_0^{2\pi}|f-g_{\epsilon}|(x)\sin(nx)dx \right| \le \frac{\epsilon}{2\pi}\cdot\frac{1}{2} \cdot2\pi = \frac{\epsilon}{2},$$
 bo z jednostajnej ciągłości $f$, na każdym przedziale $I=[k\delta, (k+1)\delta)$, 
@@ -84,7 +85,7 @@ $$ \left| \int_0^{2\pi}f(x)\sin(nx)dx - 0 \right| =
 $$ \le \left| \int_0^{2\pi} |f-g_{\epsilon}|(x)\sin(nx)dx \right| + \left| \int_0^{2\pi}g_{\epsilon}(x)\sin(nx)dx \right| = \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon $$
 czyli faktycznie
 $$\lim_{n\to\infty}\int_0^{2\pi}f(x)\sin(nx)dx = 0,$$
-z definicji.
+zbieżne z definicji.
 
 
 \end{document}

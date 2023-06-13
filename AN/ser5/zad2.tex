@@ -33,7 +33,7 @@ Rozbijamy całkę na dwie części:
 $$\int_{-1}^{1}f(x)dx = \int_{-1}^0f(x)dx + \int_0^1f(x)dx$$
 Podstawiamy $t = -x$ w pierwszej całce:
 
-$$\int_{-1}^0f(x)dx + \int_0^1f(x)dx = -\int_1^0f(-t)dt + \int_0^1f(x)dx = -\int_0^1-f(-t)dt + \int_0^1f(x)dx$$ 
+$$\int_{-1}^0f(x)dx + \int_0^1f(x)dx = \int_1^0-f(-t)dt + \int_0^1f(x)dx = -\int_0^1-f(-t)dt + \int_0^1f(x)dx$$ 
 Korzystamy z tego, że $-f(-t) = f(t)$:
 $$-\int_0^1-f(-t)dt + \int_0^1f(x)dx = -\int_0^1f(t)dt + \int_0^1f(x)dx = 0$$
 
@@ -45,7 +45,7 @@ Rozbijamy całkę:
 $$ \int_{-\pi/3}^{\pi/3}f(x)dx = \int_{-\pi/3}^{0}f(x)dx + \int_{0}^{\pi/3}f(x)dx$$
 Podstawaimy $t=-x$ w pierwszej całce:
 $$\int_{-\pi/3}^{0}f(x)dx + \int_{0}^{\pi/3}f(x)dx = -\int_0^{\pi/3}-f(-t)dt + \int_0^{\pi/3}f(x)dx$$
-Korzystamy z tego, że $-f(-x) = f(x)$:
+Korzystamy z tego, że $-f(-t) = f(t)$:
 $$-\int_0^{\pi/3}-f(-t)dt + \int_0^{\pi/3}f(x)dx = -\int_0^{\pi/3}f(t)dt + \int_0^{\pi/3}f(x)dx = 0$$
 
 \end{document}
