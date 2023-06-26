@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Egzamin AN. inf. II}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Rozwiązanie przygotowałem samodzielnie, ze świadomością, iż etyczne zdobywanie zaliczeń jest, zgodnie z Regulaminem Studiów, obowiązkiem studentek i studentów UW.
+
+\section*{Zadanie 1}
+Niech 
+$$ f(x,y) = xy -x^2y - xy^2.$$
+
+Wyznaczyć punkty krytyczne funkcji $f$, leżące w pierwszej ćwiartce $(x, y > 0)$. Zbadać istnienie ekstremów funkcji $f$ w tych punktach i określić ich rodzaj.
+
+\section*{}
+Funkcja $f:\mathbb{R}^2 \to \mathbb{R}$, więc zerowanie się pochodnych kierunkowych dla danego punktu jest wystarczającym warunkiem by był punktem krytycznym. Obliczmy, więc pochodne kierunkowe.
+
+$$\frac{\partial f}{\partial x} = y- 2xy -y^2$$ 
+oraz 
+$$\frac{\partial f}{\partial y} = x - x^2 -2xy$$
+Obliczmy punkty gdzie pochodne się zerują:
+
+$$y-2xy -y^2 = 0, x-x^2-2xy = 0$$
+czyli 
+$$2xy = y-y^2, 2xy = x-x^2 $$
+a skoro $x > 0, y > 0$, to $2xy > 0$, czyli na pewno musi zachodzić $0 < x, y < 1$, (jeśli $x \ge 1$ to $x-x^2 \le 0)$. \newline
+Mamy 
+$$ y-2xy -y^2 = x-x^2-2xy$$
+czyli 
+$$ y-y^2 = x-x^2$$
+czyli 
+$$y = x-x^2 + y^2 $$
+podstawiajc do wcześniejszego równania
+$$x - x^2 -2x(x-x^2 + y^2) = 0$$
+$$1 - x -2(x-x^2 + y^2) = 0$$
+$$ y^2 = \frac{1 - 3x - 2x^2}{2} $$
+$$y = \sqrt{x^2 - \frac{3}{2}x + \frac{1}{2}}$$
+\newpage
+Znowu podstawiając do wcześniejszego równania
+$$ x-x^2 -2x\sqrt{x^2 - \frac{3}{2}x + \frac{1}{2}} = 0$$
+$$1 - x = 2 \sqrt{x^2 - \frac{3}{2}x + \frac{1}{2}}$$
+$$\left(\frac{1-x}{2}\right)^2 = x^2 - \frac{3}{2}x + \frac{1}{2}$$
+czyli
+$$ -\frac{3}{4}x^2 + x - \frac{1}{4} = 0$$
+Co ma tylko jedno rozwiązanie dla $x \in (0, 1)$, w $x = \frac{1}{3}$.
+$$ x = \frac{1}{3}, y = \sqrt{\frac{1}{9} - \frac{3}{2}\cdot\frac{1}{3} + \frac{1}{2}} = \frac{1}{3} $$
+Czyli jedyny punkt krytyczny w pierwszej ćwiartce to $(\frac{1}{3}, \frac{1}{3})$.
+\section*{}
+Teraz wykażmy, że w znalezionym punkcie krytycznym, funkcja ma ekstremum. \newline
+Najpierw policzmy drugą pochodną w $a = (\frac{1}{3}, \frac{1}{3})$. 
+
+$$Df^2(a) = 
+\begin{bmatrix}
+	-2\cdot\frac{1}{3} & 1 -2\cdot\frac{1}{3} -2\cdot\frac{1}{3} \\
+	1-2\cdot\frac{1}{3}-2\cdot\frac{1}{3} & -2\cdot\frac{1}{3}
+\end{bmatrix} =
+\begin{bmatrix}
+	-\frac{2}{3} & -\frac{1}{3} \\
+	-\frac{1}{3} & -\frac{2}{3}
+\end{bmatrix}
+$$
+Czyli dla dowolnego wektora $v = (v_1,v_2)$, zachodzi:
+
+$$<D^2f(a)\cdot v, v> = -\frac{2}{3}v_1^2 - \frac{1}{3}v_1v_2 - \frac{1}{3}v_1v_2 - \frac{2}{3}v_2^2 = -\frac{1}{3}(v_1^2 + v_2^2 + (v_1+v_2)^2) < 0, \mbox{ dla } v \neq 0$$
+Czyli zachodzą warunki wystarczające by $f$ miała w $a$ maksimum lokalne.
+
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Egzamin AN. inf. II}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Rozwiązanie przygotowałem samodzielnie, ze świadomością, iż etyczne zdobywanie zaliczeń jest, zgodnie z Regulaminem Studiów, obowiązkiem studentek i studentów UW.
+
+\section*{}
+
+Znaleźć długość najkrótszego odcinka łączącego wykresy funkcji $f(x) = x^2$ $g(x) = x - 2,\; x \in \mathbb{R}.$
+
+Zadanie sprowadza się do znaleznienia takich punktów $a$, $b$, $a \in \{(x, x^2) | x\in\mathbb{R}\}$ i $b\in \{(x, x-2) | x \in \mathbb{R}\}$, że $||a-b||$ najmniejsze możliwe.
+Niech, więc $h : \mathbb{R}^2 : \to \mathbb{R}$ dana wzorem $$h(x_1, x_2) = ||(x_1, x_1^2) - (x_2, x_2-2)||^2 = (x_1-x_2)^2 + (x_1^2 - x_2+2)^2$$
+Znalezienie minimalnej wartości funkcji $g$ równoważne ze znalezieniem (kwadratu) minimalnej odległości między wykresami $f$ i $g$.
+
+Zauważmy, że 
+$$\lim_{||x|| \to \infty} h(x) = \infty$$
+dla dostatecznie dużych $x_1$ i $x_2$, albo lewy albo prawy składnik sumy $(x_1-x_2)^2 + (x_1^2 -x_2+2)^2$ będzie dowolnie duży. \newline Możemy zatem ograniczyć nasze poszukiwania minimum do pewnego otwartego podzbioru zbioru zwartego należącego do $\mathbb{R}^2$ a to oznacza, że $h$ ma najmniejszą wartość i przyjmuje ją w pewnym punkcie (na zbiorach zwartych funkcje ciągłe przyjmują swoje kresy a my możemy tak dobrać ten zbiór by na pewno minimum nie było na jego krańcach, czyli będziemy szukać minimum na zbiorze otwartym, więc na pewno je znajedziemy) (nie może zajść sytuacja, że $h$ nie przyjmuje nigdzie minimum i tylko dąży do jakiejś najmniejszej wartości). \newline
+W takim razie wystarczy, że znajdziemy minima lokalne i wybierzemy najmniejsze. \newline
+
+Liczymy pochodne cząstkowe i znajdujemy punkty w których się zerują:
+
+$$ \frac{\partial h}{\partial x_1} = 4x_1^3 - 4x_1x_2 + 10x_1 -2x_2$$
+$$\frac{\partial h}{\partial x_2} = -2x_1^2 - 2x_1 + 4x_2 -4$$
+
+otrzymujemy dwa równania
+$$4x_1^3 - 4x_1x_2 + 10x_1 -2x_2 = 0$$
+$$-2x_1^2 - 2x_1 + 4x_2 -4 = 0$$
+
+z drugiego wyliczamy $x_2$
+$$x_2 = \frac{1}{2}x_1^2 + \frac{1}{2}x_1 + 1 $$
+
+podstawiamy do pierwszego
+$$4x_1^3 - 4x_1\left(\frac{1}{2}x_1^2 + \frac{1}{2}x_1 + 1\right) + 10x_1 - 2\left(\frac{1}{2}x_1^2 + \frac{1}{2}x_1 + 1\right) = 0 $$
+$$ 2x_1^3 - 3x_1^2 +5x_1 -2 = 0$$
+Zauważmy, że pochodna tego wielomianu (po $x_1$ oczywiście) to
+$$6x_1^2 - 6x_1 + 5$$ i ma ona ujemną deltę, $\Delta = 36 - 4\cdot6\cdot5 = -84$, czyli pochodna zawsze ostro większa od zera, czyli funkcja pierwotna jest ściśle rosnąca, czyli też różnowartościowa. Czyli zeruje się co najwyżej w jednym punkcie.\newline
+Teraz wystarczy zgadnąć, że dla $x_1 = \frac{1}{2}$ wielomian się zeruje, ($\frac{1}{4} - \frac{3}{4} + \frac{5}{2} - 2 = 0$). Wiemy, że to jedyne rozwiązanie, więc nie musimy dalej szukać.
+
+\newpage
+
+Czyli znaleźliśmy jednen punkt krytyczny $(\frac{1}{2}, \frac{11}{8})$. Wiemy odrazu, że jest on minimum, z wcześniejszych obserwacji, (funkcja jest ciągła, szukamy ekstremów na pewnym zbiorze zwartym,  $\lim_{||x|| \to \infty} h(x) = \infty$).
+$h(\frac{1}{2}, \frac{11}{8}) = \frac{49}{32}$ czyli szukana odległość to $\frac{7}{4\sqrt{2}}$.
+
+
+\end{document}

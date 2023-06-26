@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 12in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Egzamin AN. inf. II}
+\author{Bartosz Kucypera, bk439964}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Rozwiązanie przygotowałem samodzielnie, ze świadomością, iż etyczne zdobywanie zaliczeń jest, zgodnie z Regulaminem Studiów, obowiązkiem studentek i studentów UW.
+
+\section*{Zadanie 6}
+Obliczyć całkę
+
+$$ \int_D \cos(x^2+y^2)\lambda_2(x, y)$$
+gdzie 
+$$ D =\{(x,y)\in \mathbb{R}^2 | x \in[-1, 1], -\sqrt{1-x^2} \le y \le 0\}, $$
+a $\lambda_2$ jest miarą Lebesgue'a na płaszczyźnie.
+
+Najpier zamieńmy zmienne na biegunowe. Niech 
+$$ x = r\cos\varphi, y = r\sin\varphi$$
+Teraz
+$$ -\sqrt{1-x^2} \le y \le 0$$ 
+$$ -\sqrt{1-r^2\cos^2\varphi} \le  r\sin\varphi \le 0$$
+podnosimy do kwadratu, nierówności się odwracają
+$$ 1 -r^2\cos^2\varphi \ge r^2\sin^2\varphi \ge 0 $$
+Czyli mamy 
+$$ 1 \ge r^2(\sin^2\varphi + \cos^2\varphi) = r^2 $$
+czyli
+$$ 1 \ge r \ge 0 $$
+Dodatkowo skoro $r\sin\varphi \le 0$ to $\varphi \in [-\pi, 0]$. \newline
+
+Całka po zamianie
+
+$$ \int_{D'}\cos(r^2\cos^2\varphi + r^2\sin^2\varphi) \cdot r \lambda_2(r, \varphi) $$
+(domnażamy wyznaczik pochodnej podsawienia, czyli $r$ dla podstawienia zmiennych biegunowych).
+$$D' = \{(r\cos\varphi, r\sin\varphi) | r \in [0, 1], \varphi \in [-\pi, 0]\}$$
+$D'$ jest zbiorem zwartym, funkcja podcałkowa ograniczona, czyli całka napewno zbieżna. Możemy skorzystać z twierdzenia Fubiniego.
+$$ \int_{D'}\cos(r^2) \cdot r \lambda_2(r, \varphi) = 
+\int_{[-\pi, 0]} \left( \int_{[0, 1]}\cos(r^2)r\lambda(r) \right)\lambda(\varphi) = 
+\int_{-\pi}^0 \left(\int_0^1\cos(r^2)r dr\right)d\varphi
+$$ 
+Wewnętrzną całkę liczymy z podstawienia $t = r^2$
+
+$$ \frac{1}{2}\int_0^1\cos(t)dt = \frac{\sin1}{2}$$
+
+$$ \int_{-\pi}^0\frac{\sin1}{2}d\varphi = \frac{\pi}{2}\sin1 $$
+
+
+
+\end{document}
