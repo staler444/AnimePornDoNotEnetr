@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+\usepackage{nicematrix}
+
+\title{Metody numeryczne zadanie 1}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+{\bf Niech $A \in \mathbb{R}^{N\times N}$ silnie diagonalnie dominującą macierzą w postaci Hessenberga} \newline
+Niech s.d.d. = silnie dominująca diagonalnie.
+
+\section*{Algorytm wyznaczania rozkładu LU dla A}
+{\bf Implementacja algorytmu w pliku LUFH.m}
+
+Wykorzystam rekurencyjny algorytm rozkładu LU z wikipedi, skorzystam ze specyficznej formy $A$ i wykonam go w $O(N^2)$.
+
+$$ A = 
+\begin{pNiceArray}{c|cccc}
+    a_{11} & \Block{1-4}<\Large>{w^T} & & &\\
+    \hline
+    \Block{2-1}<\Large>{v} & \Block{2-4}<\Large>{A'} & & &\\
+                           & & & & \\
+\end{pNiceArray}
+$$
+
+Niech $c = \frac{1}{a_{11}} $ (z postaci $A$ wiemy, że $a_{11} \neq 0$).
+Wiemy też, że $v = \begin{bmatrix} v_{1} \\ 0 \\ \vdots \\ 0 \end{bmatrix}$, co znacznie ułatwia obliczenia.
+
+Zachodzi $$A = \begin{pNiceArray}{c|cccc}
+    1 & \Block{1-4}<\Large>{0} & & &\\
+    \hline
+    c\cdot v_1 & \Block{4-4}<\Large>{I_{n-1}} & & &\\
+                           0 & & & & \\
+                           \vdots & & & & \\
+                           0 & & & & \\
+\end{pNiceArray} 
+\begin{pNiceArray}{c|ccccc}
+    a_{11} & \Block{1-5}<\Large>{w^T} & & & &\\
+    \hline
+    \Block{2-1}<\Large>{0} & \Block{2-5}{A'-cvw^T} & & & &\\
+                           & & & & \\
+\end{pNiceArray}
+$$
+
+Macierz $A' - cvw^T$ jest postaci Hessenberga ($cvw^T$ to macierz mająca tylko pierwszy wiersz niezerowy).
+Załóżmy, że jest też s.d.d. (dowód na dole).
+
+Możemy wtedy rekurencyjnie szukać rozkładu $LU$ dla macieży kwadratowej rozmiaru o jeden mniejszczego.
+
+Dla przypadku bazowego $N = 1$
+$$ A = \begin{pNiceArray}{c}
+    a
+\end{pNiceArray} $$ neich jej rozkład $LU$ to
+
+$$ A = \begin{pNiceArray}{c}
+    a
+\end{pNiceArray} = \begin{pNiceArray}{c}
+    1
+\end{pNiceArray}
+\begin{pNiceArray}{c}
+    a
+\end{pNiceArray}
+$$
+
+Niech, więc $L'U'$ będzie rekurencyjnie znalezionym rozkładem $LU$ macierzy $A' - cvw^T$.
+
+Wtedy rozkład $LU$ macierzy $A$ to:
+
+$$A = \begin{pNiceArray}{c|cccc}
+    1 & \Block{1-4}<\Large>{0} & & &\\
+    \hline
+    c\cdot v_1 & \Block{4-4}<\Large>{L'} & & &\\
+                           0 & & & & \\
+                           \vdots & & & & \\
+                           0 & & & & \\
+\end{pNiceArray} 
+\begin{pNiceArray}{c|ccccc}
+    a_{11} & \Block{1-5}<\Large>{w^T} & & & &\\
+    \hline
+    \Block{2-1}<\Large>{0} & \Block{2-5}<\Large>{P'} & & & &\\
+                           & & & & \\
+\end{pNiceArray}
+$$
+
+Wykonujemy $O(N)$ kroków zmniejszając problem i w każdym z nich wykonujemy nie więcej niż $O(N)$ operacji (bo koszt wyliczenia $A'-cvw^T$ w najgorszym wypadku to $N$). \newline
+Czyli cały algorytm działa w $O(N^2)$.
+
+Pokażmy jeszcze, że $A' - cvw^T$ jest s.d.d. \newline
+Niech $n = N-1$. \newline
+Dla pierwszego wiersza chcemy by zachodziła nierówność, (dla reszty wierszy jest to oczywiste bo $A$ jest s.d.d., więc i $A'$ jest s.d.d.):
+$$ |a'_{11} - w_1v_1c| \ge \sum_{i=2}^n |a'_{1i} - w_iv_1c|$$
+mamy:
+$$ |a'_{11} - w_1v_1c| \ge |a'_{11}| - |w_1v_1c|$$
+Ponieważ $A$ jest s.d.d. mamy:
+$$|a_{22}| > \sum_{i = 1, i\neq2}^N|a'_{2i}| = |a_{21}| + \sum_{i=3}^N |a_{2i}| $$
+$$ |a_{11}| > \sum_{i = 2}^N |a_{1i}| \mbox{ czyli } \left| \frac{\sum_{i = 2}^N |a_{1i}|}{a_{11}}\right| < 1 $$
+zachodzi więc:
+$$ |a_{22}| > \left| \frac{\sum_{i = 2}^N |a_{1i}|}{a_{11}}\right| |a_{21}| + \sum_{i=3}^N |a_{2i}| $$
+przypominamy sobie, że $a_{21} = v_1$, $\frac{1}{a_{11}} = c$, $a_{1i} = w_{i-1}$ dla $i \ge 2$ i $a_{2i} = a'_{1 i-1}$, dla $i \ge 2$, czyli powyższą nierównośc można zapisać jako:
+
+
+$$|a'_{11}| > |w_1v_1c| + \sum_{i=2}^n |a'_{1i}| + |w_iv_1c|$$
+i z nierówności trójkąta:
+$$ \sum_{i=2}^n |a'_{1i}| + |w_iv_1c| \ge \sum_{i=2}^n |a'_{1i} - w_iv_1c| $$
+czyli zachodzi:
+$$ |a'_{11}| > |w_1v_1c| + \sum_{i=2}^n |a'_{1i} - w_iv_1c| $$
+czyli: 
+$$ |a'_{11} - w_1v_1c| \ge |a'_{11}| - |w_1v_1c| > \sum_{i=2}^n |a'_{1i} - w_iv_1c| $$
+więc macierz $A' - cvw^T$ jest silnie dominująca diagonalnie.
+
+\section*{Algorytm rozwiązujący układ równań z macierzą A}
+
+{\bf Implementacja algorytmu w pliku LUFH\_LES.m}
+
+Skoro mamy już maszynkę do rozkładu $LU$ macierzy $A$, to rozwiązanie układu równań z tą macierzą jest bardzo proste.
+
+Niech $b \in \mathbb{R}^N$ zadanym wektorem. \newline
+Szukamy takiego $x \in \mathbb{R}^N$, że $Ax=b$. \newline
+
+Niech, więc $A=LU$ (wyznaczone kosztem $O(N^2)$). \newline
+Możemy najpierw rozwiązać równanie $Ly=b$ i potem $Ux = y$. \newline
+$L$ dolnotrójkątna, więc równanie $Ly=b$ rozwiązujemy w $O(N^2)$ (podstawieniami). \newline
+Tak samo skoro $U$ górnotrójkątna to $Ux=y$ rozwiązujemy w $O(N^2)$.
+
+Czyli cały algorytm zajmuje nam $O(N^2)$.
+
+\end{document}
