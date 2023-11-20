@@ -5,7 +5,7 @@ function [Q, R] = QRFHTD(A)
     R = A;
     
     % zapominamy już o rekurencji, żeby łatwiej się implementowało
-    % wsztsytkie przekształcenia wyliczamy odrazu w pełnym wymiarze
+    % wszystkie przekształcenia wyliczamy odrazu w pełnym wymiarze i na bierząco domnażamy do Q
     % w komentarzach nomenklatura z opisu algorytmu, żeby było widać co się dzieje
     for i = 1:(N-1)
         % wyliczenie wektora v
@@ -16,8 +16,8 @@ function [Q, R] = QRFHTD(A)
         uii = uii/nrm_u; % pierwsza współżędna wektora v
         uji = uji/nrm_u; % druga współżędna wektora v
 
-        % zmieniają nam się tylko cztery komórki w tym tylko jedna macierzy P' (z opisu algorytmu)
-        for j = i:(i+1)
+        % zmienia nam się tylko sześć komórek w tym jedna z macierzy P' (P' z opisu algorytmu)
+        for j = i:min(N, i+2)
             % zmiana komórek wierszy 
             ch1 = -2 * (R(i, j)*uii*uii + R(i+1, j)*uii*uji);
             ch2 = -2 * (R(i, j)*uji*uii + R(i+1, j)*uji*uji);

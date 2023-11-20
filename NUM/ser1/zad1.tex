@@ -24,9 +24,8 @@
 Niech s.d.d. = silnie dominująca diagonalnie.
 
 \section*{Algorytm wyznaczania rozkładu LU dla A}
-{\bf Implementacja algorytmu w pliku LUFH.m}
 
-Wykorzystam rekurencyjny algorytm rozkładu LU z wikipedi, skorzystam ze specyficznej formy $A$ i wykonam go w $O(N^2)$.
+Wykorzystam rekurencyjny algorytm rozkładu LU z wykładu, skorzystam ze specyficznej formy $A$ i wykonam go w $O(N^2)$.
 
 $$ A = 
 \begin{pNiceArray}{c|cccc}
@@ -43,7 +42,7 @@ Wiemy też, że $v = \begin{bmatrix} v_{1} \\ 0 \\ \vdots \\ 0 \end{bmatrix}$, c
 Zachodzi $$A = \begin{pNiceArray}{c|cccc}
     1 & \Block{1-4}<\Large>{0} & & &\\
     \hline
-    c\cdot v_1 & \Block{4-4}<\Large>{I_{n-1}} & & &\\
+    c\cdot v_1 & \Block{4-4}<\Large>{I_{N-1}} & & &\\
                            0 & & & & \\
                            \vdots & & & & \\
                            0 & & & & \\
@@ -59,7 +58,7 @@ $$
 Macierz $A' - cvw^T$ jest postaci Hessenberga ($cvw^T$ to macierz mająca tylko pierwszy wiersz niezerowy).
 Załóżmy, że jest też s.d.d. (dowód na dole).
 
-Możemy wtedy rekurencyjnie szukać rozkładu $LU$ dla macieży kwadratowej rozmiaru o jeden mniejszczego.
+Możemy wtedy rekurencyjnie szukać rozkładu $LU$ dla macierzy kwadratowej rozmiaru o jeden mniejszczego.
 
 Dla przypadku bazowego $N = 1$
 $$ A = \begin{pNiceArray}{c}
@@ -110,7 +109,7 @@ $$|a_{22}| > \sum_{i = 1, i\neq2}^N|a'_{2i}| = |a_{21}| + \sum_{i=3}^N |a_{2i}| 
 $$ |a_{11}| > \sum_{i = 2}^N |a_{1i}| \mbox{ czyli } \left| \frac{\sum_{i = 2}^N |a_{1i}|}{a_{11}}\right| < 1 $$
 zachodzi więc:
 $$ |a_{22}| > \left| \frac{\sum_{i = 2}^N |a_{1i}|}{a_{11}}\right| |a_{21}| + \sum_{i=3}^N |a_{2i}| $$
-przypominamy sobie, że $a_{21} = v_1$, $\frac{1}{a_{11}} = c$, $a_{1i} = w_{i-1}$ dla $i \ge 2$ i $a_{2i} = a'_{1 i-1}$, dla $i \ge 2$, czyli powyższą nierównośc można zapisać jako:
+przypominamy sobie, że $a_{21} = v_1$, $\frac{1}{a_{11}} = c$, $a_{1i} = w_{i-1}$ dla $i \ge 2$ i $a_{2i} = a'_{1 i-1}$, dla $i \ge 2$, czyli powyższą nierówność można zapisać jako:
 
 
 $$|a'_{11}| > |w_1v_1c| + \sum_{i=2}^n |a'_{1i}| + |w_iv_1c|$$
@@ -122,9 +121,36 @@ czyli:
 $$ |a'_{11} - w_1v_1c| \ge |a'_{11}| - |w_1v_1c| > \sum_{i=2}^n |a'_{1i} - w_iv_1c| $$
 więc macierz $A' - cvw^T$ jest silnie dominująca diagonalnie.
 
-\section*{Algorytm rozwiązujący układ równań z macierzą A}
+\newpage
 
-{\bf Implementacja algorytmu w pliku LUFH\_LES.m}
+Kod w matlabie:
+
+\begin{verbatim}
+% LU Factorization for strongly diagonal dominant Householders matrix
+function [L, U] = LUFH(A)
+    N = size(A, 1);
+    % będziemy budować L i U "w miejscu"
+    L = eye(N);
+    U = A;
+
+    for i = 1:(N-1)
+        c = 1/U(i, i);
+        % ustawiamy v1*c z opisu
+        L(i+1, i) = U(i+1, i) * c;
+        % zerujemy pierwszą kolumne pod diagonalą
+        U(i+1, i) = 0;
+
+        % wyliczamy A' - c .* v * transpose(w)
+        for j = i+1:N
+            U(i+1, j) -= c * U(i, j) * A(i+1, i);
+        end
+    end
+end
+\end{verbatim}
+
+\newpage
+
+\section*{Algorytm rozwiązujący układ równań z macierzą A}
 
 Skoro mamy już maszynkę do rozkładu $LU$ macierzy $A$, to rozwiązanie układu równań z tą macierzą jest bardzo proste.
 
@@ -137,5 +163,42 @@ $L$ dolnotrójkątna, więc równanie $Ly=b$ rozwiązujemy w $O(N^2)$ (podstawie
 Tak samo skoro $U$ górnotrójkątna to $Ux=y$ rozwiązujemy w $O(N^2)$.
 
 Czyli cały algorytm zajmuje nam $O(N^2)$.
+
+Kod w matlabie:
+
+\begin{verbatim}
+% LUFH - Linear Equations Solver
+function [x] = LUFH_LES(A, b)
+    % korzystamy z wcześniejszego algorytmu
+    [L, U] = LUFH(A);
+    N = size(b, 1);
+
+    y = zeros(N, 1);
+    % pierwszą zmienną wyliczamy ręcznie
+    y(1) = b(1)/L(1, 1);
+    for i = 2:N
+        % podstawiamy już wyliczone zmienne i "przerzucamy" na drugą stronę równania
+        for j = 1:(i-1)
+            b(i) -= L(i,j)*y(j);
+        end
+        % wyliczamy kolejną zmienną
+        y(i) = b(i)/L(i, i);
+    end
+
+    x = zeros(N, 1);
+    % pierwszą zmienną wyliczamy ręcznie
+    x(N) = y(N)/U(N,N);
+    for i = (N-1):-1:1
+        % podstawiamy już wyliczone zmienne i "przerzucamy" na drugą stronę równania
+        for j = (i+1):N
+            y(i) -= U(i, j)*x(j);
+        end
+        % wyliczamy kolejną zmienną
+        x(i) = y(i)/U(i, i);
+    end
+end
+\end{verbatim}
+
+
 
 \end{document}
