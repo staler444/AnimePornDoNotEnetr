@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Kolokwium Teoria Informacji}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 1}
+Niech $n-$ ilość monet, $k-$ wybrany przez nas podział ważenia. \newline
+(dodatkowo niech $n,k$ "sęsowne" czyli $n \ge 2, 1\le 2k\le n$,  $\:n,k \in \mathbb{N}$)
+
+Proces z zadania możemy zasymulować poprzez dwie zmienne losowe.
+
+X - zmienna losowa wybierająca lżejszą monetę.
+
+Y - zmienna symulująca ważenie, zmienia rozmiar zbioru monet które mogą okazać się najlżejszą.
+
+X ma rozkład jednostajny (każda moneta z takim samym prawdopodobieństwem może okazać się najlżejsza).
+
+Y z prawdopodobieństwem $\frac{2k}{n}$ zmniejszy zbiór potencjalnie najlżejszych monet do k (jeśli ważone zbiory nie będą takie same, to wiemy, że w lżejszym z nich znajduje się lżejsza moneta) i z prawdopodobieństwem $\frac{n - 2k}{n}$ zmniejszy ten zbiór do $n-2k$ (jeśli ważone zbiory są takie same to lżejsza moneta jest w zbioże monet nieważonych).
+
+Chcemy zmaksymalizować wspólną inforamcję $X, Y$, czyli informację jaką uzyskamy o najlżejszej monecie po ważeniu.
+
+Mamy $I(X;Y)=H(X) - H(X|Y)$, przy czym $H(X)$ jest stałe i równe $\log_2(n)$, więc zadanie sprowadza się do zminimalizowania $H(X|Y)$.
+
+Rozpiszmy ze wzoru na entropię wrunkową zmiennej dyskretnej:
+
+$$H(X|Y) = \sum_{y \in Y}p(y)H(X|Y=y) = \frac{2k}{n} \log_2(k) + \frac{n- 2k}{n} \log_2(n-2k)$$
+Zkorzystaliśmy z wcześniej rozpisanego rozkładu $Y$ i z tego, że jeśli rozmiar zbioru monet potencjalnie najlżejszych to $r$, to ponieważ $X$ ma rozkład jednostajny na tym zbioże, będzie miało entropię równą $\log_2(r)$.
+
+W naszym zadaniu $n$ jest stałą, zastanawiamy się nad wyborem optymalnego k.
+
+Niech, więc $f: (0, n/2) \to \mathbb{R}$ dana wzorem $f(x) = \frac{2x}{n}\log_2(x)+\frac{n-2x}{n}\log_2(n-2x)$.
+
+Znalezienie minimum funckji $f$, (jeśli ono istnieje) rozwiązuje zadanie, (z dokładnością do tego, że k musi być liczbą naturalną, zajmiemy się tym potem).
+
+Pochodna $f$ po $x$:
+
+$$ f'(x) = \frac{2}{n}\log_2(x) - \frac{2}{n}\log_2(n-2x) $$
+
+Szukamy miejsc zerowych:
+
+$$f'(x) = 0$$
+$$\frac{2}{n}\log_2(x) - \frac{2}{n}\log_2(n-2x) = 0$$
+$$\log_2(x) = \log_2(n-2x)$$
+$$x = n-2x$$
+$$x = \frac{n}{3}$$
+
+Przy czym
+$$f'(1) = -\frac{2}{n}\log_2(n-2) \le 0$$
+$$f'((n-1)/2) = \frac{2}{n}\log_2((n-1)/2) > 0$$
+czyli w punkcie $x = \frac{n}{3}$ $f$ osiaga minimum.
+
+Musimy jeszcze zagwarantować by $k$ było liczbą całkowitą.
+
+Jeśli $n$ przystaje do 0 modulo 3, to optymalne $k=\frac{n}{3}$ i już.
+
+Jeśli jest inaczej to mamy dwóch kandydatów na $k$, sufit/podłogę z $\frac{n}{3}$.
+
+Sprawdźmy, więc w każdym przypadku który z tych kandydatów jest lepszy.
+
+\subsection*{Przypadek $n = 3c + 1$}
+Mamy dwóch kandydatów:
+$k_1$ = $c$ i $k_2$ = $c+1$.
+
+Prównajmy, który da nam mniejszą entropię warunkową:
+
+$$ f(k_1) \:?\: f(k_2) $$
+
+$$  \frac{2c}{3c+1}\log_2(c) + \frac{3c+1-2c}{3c+1}\log_2(3c+1-2c) \: ? \: 
+    \frac{2c + 2}{3c+1}\log_2(c+1) + \frac{3c+1-2c-2}{3c+1}\log_2(3c+1-2c-2) $$
+
+$$ 2c\log_2(c) + (c+1)\log_2(c+1) \: ? \: 2(c+1)\log_2(c+1) + (c-1)\log_2(c-1) $$
+
+$$2c\log_2(c) \: ? \:(c+1)\log_2(c+1)+(c-1)\log_2(c-1) $$
+
+$$ c\log_2(c) - (c-1)\log_2(c-1) \: ? \: (c+1)\log_2(c+1) - c\log_2(c)$$
+
+teraz, wiemu już, że nierówność jest następująca:
+
+$$ c\log_2(c) - (c-1)\log_2(c-1) \: < \: (c+1)\log_2(c+1) - c\log_2(c)$$
+
+wynika to z tego, że pochodna funckji $x\log_2(x)$ jest ściśle rosnąca, ($(x\log_2(x))' = \frac{\ln(x)+1}{\ln(2)}$).
+
+Czyli zachodzi:
+$$ f(k_1) < f(k_2)$$
+
+Czyli optymalne $k$ to $\lfloor \frac{n}{3} \rfloor$.
+
+\newpage 
+
+\subsection*{Przypadek $n = 3c+2$}
+Mamy dwóch kandydatów:
+$k_1 = c$ i $k_2 = c+1$.
+
+Prównajmy który da nam mnijeszą entropię warunkową:
+
+$$f(k_1) \: ? \: f(k_2) $$
+
+$$  \frac{2c}{3c+2}\log_2(c) + \frac{3c+2-2c}{3c+2}\log_2(3c+2-2c) \: ? \: 
+    \frac{2c + 2}{3c+2}\log_2(c+1) + \frac{3c+2-2c-2}{3c+2}\log_2(3c+2-2c-2) $$
+
+$$ 2c\log_2(c) + (c+2)\log_2(c+2) \: ? \: 2(c+1)\log_2(c+1) + c\log_2(c) $$
+
+$$c\log_2(c) + (c+2)\log_2(c+2) \: ? \: 2(c+1)\log_2(c+1) $$
+
+$$ (c+2)\log_2(c+2) - (c+1)\log_2(c+1) \: ? \: (c+1)\log_2(c+1) - c\log_2(c) $$
+
+tak jak wcześniej, wiemy już, że zachodzi:
+
+
+$$ (c+2)\log_2(c+2) - (c+1)\log_2(c+1) \: > \: (c+1)\log_2(c+1) - c\log_2(c) $$
+
+czyli
+
+$$ f(k_1) > f(k_2) $$
+
+Czyli optymalne $k$ to $ \lceil \frac{n}{3} \rceil$.
+
+\subsection*{Przypadek szczególny zadania}
+
+W podstawowej treści mieliśmy $n = 7$, czyli $n = 3 \cdot 2 + 1$.
+
+Czyli wiemy, że optymalne $k$ to $\lfloor \frac{n}{3} \rfloor = 2$.
+
+Prawidłowa jest, więc odpowiedź 2., ważymy dwie przeciwko dwóm.
+
+
+
+\end{document}:
