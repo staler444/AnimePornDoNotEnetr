@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+\usepackage[dvipsnames]{xcolor}
+
+\title{Zadanie 2}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\newcommand{\br}[1]{\textcolor{brown}{\bf #1}}
+\newcommand{\gr}[1]{\textcolor{green}{\bf #1}}
+\newcommand{\n}{\newline}
+\newcommand{\bd}[1]{\mbox{ \bf #1 }}
+
+\begin{document}
+
+\maketitle
+
+\section*{Dziedziny syntaktyczne}
+\br{Num} $\ni n$ ::=  $\dots$ | $-1$ | $0$ | $1$ | $\dots$ \n
+\br{Var} $\ni x$ ::= $x$ | $y$ | $z$ | $\dots$ | $\dots$ \n
+\br{PVar} $\ni p$ ::= $p$ | $q$ | $\dots$ | $\dots$ \n
+\br{Expr} $\ni E$ ::= $n$ | $x$ | $E_1 + E_2$ | $E_1 - E_2$ \n
+\br{Instr} $\ni I$ ::= $x:=E$ | $I_1;I_2$ | $\bd{skip}$ | $\bd{if} E =  0 \bd{then} I_1 \bd{else} I_2$ | $\bd{begin} d \;\; I \bd{end}$ | \n
+\hspace*{5.5em} $\bd{call} p(x)$ | $\bd{export} p$ | $\bd{exit} p$ \n
+\br{Decl} $\ni d$ ::= $\bd{var} x = E$ | $\bd{proc} p(x) \bd{is} (I)$ | $d_1;d_2$
+
+\section*{Dziedziny semantyczne}
+\gr{Int} $= \dots$ \n
+\gr{Loc} $= \dots$ \n
+\gr{Store} $= \gr{Loc} \to \gr{Int} + \gr{Loc} + \gr{Proc}$ \n
+\gr{VEnv} $= \br{Var} \to \gr{Loc}$ \n
+\gr{PEnv} $= \br{PVar} \to \gr{Proc}$ \n
+\gr{Cont} $= \gr{Store} \to \gr{Store}
+
+\end{document}
