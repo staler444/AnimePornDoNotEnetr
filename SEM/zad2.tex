@@ -8,18 +8,25 @@
 \usepackage{amssymb}
 \usepackage[hidelinks]{hyperref}
 \usepackage{amsmath,suetterl,graphicx,mathrsfs}
-\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[a4paper, total={6.8in, 10in}]{geometry}
 \usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
 \usepackage[dvipsnames]{xcolor}
+\usepackage[only,llbracket,rrbracket]{stmaryrd}
 
 \title{Zadanie 2}
-\author{Bartosz Kucypera}
-\date{\today}
+\author{Bartosz Kucypera, bk439964}
+\date{}
 
-\newcommand{\br}[1]{\textcolor{brown}{\bf #1}}
-\newcommand{\gr}[1]{\textcolor{green}{\bf #1}}
+\newcommand{\br}[1]{\textcolor{brown}{\textbf{#1}}}
+\newcommand{\brr}[2]{\textcolor{brown}{\textbf{#1}\(_{\mbox{#2}}\)}}
+\newcommand{\gr}[1]{\textcolor{green}{\textbf{#1}}}
+\newcommand{\grr}[2]{\textcolor{green}{\textbf{#1}\(_{\mbox{#2}}\)}}
+\newcommand{\grrm}[2]{\textcolor{green}{\textbf{#1}_{\mbox{#2}}}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
 \newcommand{\n}{\newline}
-\newcommand{\bd}[1]{\mbox{ \bf #1 }}
+\newcommand{\bd}[1]{\mbox{\bf#1}}
+\newcommand{\lc}[1]{\textcolor{green}{$\mathcal{#1}$}}
+\newcommand{\db}[1]{$\llbracket#1\rrbracket$}
 
 \begin{document}
 
@@ -30,16 +37,71 @@
 \br{Var} $\ni x$ ::= $x$ | $y$ | $z$ | $\dots$ | $\dots$ \n
 \br{PVar} $\ni p$ ::= $p$ | $q$ | $\dots$ | $\dots$ \n
 \br{Expr} $\ni E$ ::= $n$ | $x$ | $E_1 + E_2$ | $E_1 - E_2$ \n
-\br{Instr} $\ni I$ ::= $x:=E$ | $I_1;I_2$ | $\bd{skip}$ | $\bd{if} E =  0 \bd{then} I_1 \bd{else} I_2$ | $\bd{begin} d \;\; I \bd{end}$ | \n
-\hspace*{5.5em} $\bd{call} p(x)$ | $\bd{export} p$ | $\bd{exit} p$ \n
-\br{Decl} $\ni d$ ::= $\bd{var} x = E$ | $\bd{proc} p(x) \bd{is} (I)$ | $d_1;d_2$
+\br{Instr} $\ni I$ ::= $x:=E$ | $I_1;I_2$ | $\bd{skip}$ | $\bd{if } E =  0 \bd{ then } I_1 \bd{ else } I_2$ | $\bd{begin } d \;\; I \bd{ end}$ | \n
+\hspace*{5.5em} $\bd{ call } p(x)$ | $\bd{export } p$ | $\bd{exit } p$ \n
+\br{Decl} $\ni d$ ::= $\bd{var } x = E$ | $\bd{proc } p(x) \bd{ is } (I)$ | $d_1;d_2$
 
 \section*{Dziedziny semantyczne}
 \gr{Int} $= \dots$ \n
 \gr{Loc} $= \dots$ \n
-\gr{Store} $= \gr{Loc} \to \gr{Int} + \gr{Loc} + \gr{Proc}$ \n
+\gr{Store} $= \gr{Loc} \to \gr{Int}$ \n
 \gr{VEnv} $= \br{Var} \to \gr{Loc}$ \n
 \gr{PEnv} $= \br{PVar} \to \gr{Proc}$ \n
-\gr{Cont} $= \gr{Store} \to \gr{Store}
+\gr{AEnv} $= \br{PVar} \to \gr{Loc}$ \n
+\gr{EEnv} $= \br{PVar} \to \gr{Loc}$ \n
+\gr{Cont} $= \gr{Store} \to \gr{Store}$ \n
+\grr{Cont}{E} $= \gr{Int} \to \gr{Cont}$ \n
+\grr{Cont}{D} $= \gr{VEnv} \to \gr{PEnv} \to \gr{Cont}$ \n
+\grr{Cont}{P} $= \gr{VEnv} \to \gr{PEnv} \to \gr{AEnv} \to \gr{EEnv} \to \gr{Loc} \to \gr{Cont}$ \n
+\gr{Proc} $= \gr{Cont} \to$ \grr{Cont}{P}\n
+
+\gr{AEnv} dla każdej procedury pamięta lokację zmiennej "z której eksportujemy".
+
+\gr{EEnv} dla każdej procedury pamięta lokację zmiennej "do której eksportujemy".
+
+\section*{Funkcje semantyczne}
+\lc{N}$:$ $\br{Num} \to \gr{Int}$ 
+
+\lc{E}$:$ $\br{Expr} \to \underbrace{\gr{VEnv} \to \grrm{Cont}{E} \to \gr{Cont}}_{\gr{EXPR}}$
+
+\lc{D}$:$ $\br{Decl} \to \underbrace{\gr{VEnv} \to \gr{PEnv} \to \grrm{Cont}{D} \to \gr{Cont}}_{\gr{DECL}}$
+
+\lc{I}$:$ $\br{Instr} \to \underbrace{\gr{VEnv} \to \gr{PEnv} \to \gr{AEnv} \to \gr{EEnv} \to \gr{Cont} \to \gr{Cont}}_{\gr{INSTR}}$
+
+\newpage 
+
+\section*{Klauzule semantyczne}
+\subsection*{Wyrażenia}
+\lc{E}\db{\br{n}} = $n:$ \gr{Int} \bl{where} $n$ = \lc{N}\db{\br{n}} \n
+\lc{E}\db{x} $\rho_V \kappa_E = \lambda s:\gr{Store}.\kappa_E\:n\:s$ \bl{where} $l = \rho_V\:x,n = s\:l$ \n
+\lc{E}\db{E_1 \br{+} E_2} $\rho_V \kappa_E =$ \lc{E}\db{E_1}$\rho_V \:\lambda n_1:\gr{Int}.$ \lc{E}\db{E_2}$\rho_V \lambda n_2:\gr{Int}.\kappa_E(n_1+n_2)$ \n
+\lc{E}\db{E_1 \br{$-$} E_2} $\rho_V \kappa_E =$ \lc{E}\db{E_1}$\rho_V \:\lambda n_1:\gr{Int}.$ \lc{E}\db{E_2}$\rho_V \lambda n_2:\gr{Int}.\kappa_E(n_1-n_2)$ \n
+
+\subsection*{Deklaracje}
+\lc{D}\db{\bd{var } x = E} $\rho_V \rho_P \kappa_D =$ \lc{E}\db{E}$\rho_V \lambda n:\gr{Int}.\lambda s:\gr{Store}. \kappa \:s[l\mapsto n]$\n 
+\hspace*{12em}\bl{where} $l = newloc(s), \kappa = \kappa_D \rho_V[x\mapsto l] \rho_P$
+
+\lc{D}\db{\bd{proc } p(x) \bd{ is } (I)}$\rho_V \rho_P \kappa_D = \kappa_D \rho_V \rho_P[p \mapsto P]$\n
+\hspace*{8em} \bl{where} $P \:\kappa \rho_V \: \rho_P \: \rho_A \: \rho_E \: l \: s =$ \lc{I}\db{I} $\rho_V[x\mapsto j] \rho_P \rho_A[p \mapsto j] \rho_E[p \mapsto l] s[j \mapsto s\:l]$ \bl{where} $j=newloc(s)$
+
+\lc{D}\db{d_1;d_2} $\rho_V \rho_P \kappa_D =$ \lc{D}\db{d_1} $\rho_V \rho_P \lambda \rho_V'.\lambda \rho_P'.$ \lc{D}\db{d_2}$\rho_V' \rho_P' \kappa_D$
+
+\subsection*{Instrukcje}
+\lc{I}\db{x:=E}$\rho_V \rho_P \rho_A \rho_E \kappa$ = \lc{E}\db{E}$\rho_V \lambda n:\gr{Int}.\lambda s:\gr{Store}.\kappa \:s[l \mapsto n]$ \bl{where} $l = \rho_V \:x$
+
+\lc{I}\db{I_1;I_2}$\rho_V \rho_P \rho_A \rho_E \kappa =$ \lc{I}\db{I_1}$\rho_V \rho_P \rho_A \rho_E($\lc{I}\db{I_2}$\rho_V \rho_P \rho_A \rho_E \kappa)$
+
+\lc{I}\db{\bd{skip}}$\rho_V \rho_P \rho_A \rho_E \kappa = \kappa $
+
+\lc{I}\db{\bd{if } E = 0 \bd{ then }I_1\bd{ else }I_2}$ \rho_V \rho_P \rho_A \rho_E \kappa=$ \lc{E}\db{E} $\rho_V \lambda n: \gr{Int}. ifte_{\gr{Cont}}(n = 0,\: $\lc{I}\db{I_1}$\rho_V \rho_P \rho_A \rho_E \kappa,\:$\lc{I}\db{I_2}$\rho_V \rho_P \rho_A \rho_E \kappa)$
+
+\lc{I}\db{\bd{begin }d \:\: I \bd{ end}}$\rho_V \rho_P \rho_A \rho_E \kappa$ = \lc{D}\db{d} $\rho_V \rho_P \lambda \rho_V'.\lambda \rho_P'.$\lc{I}\db{I}$\rho_V'\rho_P'\rho_A\rho_E\kappa$
+
+\lc{I}\db{\bd{call } p(x)} $\rho_V \rho_P \rho_A \rho_E \kappa = P \kappa \rho_V \rho_P \rho_A \rho_E l$ \bl{where} $ P = \rho_P p,$ $l = \rho_V x$
+
+\lc{I}\db{\bd{export }p}$\rho_V \rho_P \rho_A \rho_E \kappa \: s =\kappa \: s[l \mapsto n]$ \bl{where } $l = \rho_E p,$ $n = s (\rho_A \:p)$
+
+\lc{I}\db{\bd{exit }p} $\rho_V \rho_P \rho_A \rho_E \kappa \: s = s[l \mapsto n+1]$ \bl{where } $l = \rho_E p$, $n = s\: l$
+
 
 \end{document}
