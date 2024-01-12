@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Druga praca domowa}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 2}
+\subsection*{a)}
+Wykaż, że jeśli współczynniki $b_0, b_1, b_2$ rozwinięcia w bazie Newtona wielomianu interpolacyjnego Lagrange'a opartego na trzech węzłach równoodległych: $x_0=0, x_1 =1,x_2 =2$ zaburzymy z błędem wezwzględnym nie przekraczającym $\epsilon$, to jego wartości na przedziale $[x_0, x_2]$ zmienią się nie więcej niż o $E=5\epsilon$.
+
+Wielomian interpolacyjny Lagrange'a oparty na węzłach $x_0, x_1, x_2$ to
+$$b_0 + b_1(x-x_0) + b_2(x-x_0)(x-x_1)$$
+jeśli zaburzymy współczynniki $b_0,b_1,b_2$ o $\epsilon_0, \epsilon_1, \epsilon_2$ ($|\epsilon_0|, |\epsilon_1|, |\epsilon_2| \le \epsilon $) to błąd bezwzględny wyniesie:
+
+$$\left|(b_0+\epsilon_0) + (b_1+\epsilon_1)(x-x_0) + (b_2+\epsilon)(x-x_0)(x-x_1) - \left(b_0 + b_1(x-x_0) + b_2(x-x_0)(x-x_1)\right) \right| $$
+czyli:
+$$\left|\epsilon_1 + \epsilon_1(x-x_0) + \epsilon_2(x-x_0)(x-x_1)\right|$$
+możemy skorzystać z nierówności trójkąta:
+$$\left|\epsilon_1 + \epsilon_1(x-x_0) + \epsilon_2(x-x_0)(x-x_1)\right| \le |\epsilon_1| + |\epsilon_1(x-x_0)| + |\epsilon_2(x-x_0)(x-x_1)|  $$
+i każdy składnik sumy oszacować osobno.
+\subsubsection*{1) $|\epsilon_0|$}
+Z treści mamy 
+$$|\epsilon_0| \le \epsilon$$
+\subsubsection*{2) $|\epsilon_1(x-x_0)|$}
+Jest to moduł z funkcji liniowej, więc na przedziale $[x_0,x_2]$ osiąga maksimum w jednym z krańców przedziału. W $x_0$ się zeruje, więc maksimum w $x_2$.
+$$|\epsilon_1(x_2-x_0)| = |\epsilon_1\cdot2| \le 2\epsilon$$
+
+\subsubsection*{3) $|\epsilon_2(x-x_0)(x-x_1)|$}
+Jest to moduł z funkcji kwadratowej, czyli na przedziale $[x_0, x_2]$ osiąga maksimum w jednym z krańców przedziału, lub w wierzchołku paraboli. W $x_0$ się zeruje, więcj odrazu ten punkt odrzucamy.
+$$x_w = \frac{x_0 + x_1}{2}$$
+$$|\epsilon_2(x_w-x_0)(x_w-x_1)| = \left|\epsilon_2\frac{1}{2}\frac{-1}{2}\right| \le \frac{1}{4}\epsilon$$
+W $x_2$:
+$$|\epsilon_2(x_2-x_0)(x_2-x_1)| = |\epsilon_2\cdot2\cdot1| \le 2\epsilon$$
+czyli maksimum wynosi $2\epsilon$ i jest osiągane w $x_2$.
+
+
+Czyli całą sumę mozemy oszacować jako:
+$$|\epsilon_1| + |\epsilon_1(x-x_0)| + |\epsilon_2(x-x_0)(x-x_1)| \le \epsilon + 2\epsilon + 2\epsilon = 5\epsilon  $$
+
+\newpage
+
+\subsection*{b)}
+Oszacuj $E$ dla przypadku, gdy $x_i=i⋅h$ $(i=0,1,2)$ dla pewnego $h>0$.
+
+Zauważmy, że w podpunkcie $a)$, kożystaliśmy z wartości punktów $x_0, x_1, x_2$ dopiero przy oblicaniu maksimum składowych sum na przedziale $[x_0, x_2]$.
+
+Zadanie sprowadza się, więc do ponowenego obliczenia maksimów z innymi wartościami punktów.
+
+\subsubsection*{1)$|\epsilon_0|$}
+Nic się nie zmienia.
+$$|\epsilon_0| \le \epsilon$$
+
+\subsubsection*{2)$|\epsilon_1(x-x_0)|$}
+Znowu w $x_0$ wartość $0$, więc maksimum w $x_2$.
+$$|\epsilon_1(x_2-x_0)| = |2h\epsilon_1| \le 2h\epsilon$$
+
+\subsubsection*{3)$|\epsilon_2(x-x_0)(x-x_1)|$}
+W $x_0$ wartość 0, maksimum w $x_2$ lub $x_w$.
+
+W $x_w$:
+$$ x_w = \frac{x_0+x_1}{2} = \frac{h}{2}$$
+$$|\epsilon_2(x_w-x_0)(x_w-x_1)| = \left| \epsilon_2\frac{h}{2}\frac{-h}{2} \right| \le \frac{h^2}{4}\epsilon$$
+W $x_2$:
+$$|\epsilon_2(x_2-x_0)(x_2-x_1) = |\epsilon_2\cdot2h\cdot h| \le 2h^2\epsilon$$
+czyli maksimum mniejsze bądz równe $2h^2\epsilon$.
+
+Podumowując $E \le 2h^2\epsilon + 2h\epsilon + \epsilon$.
+
+\end{document}
