@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Kolokwium z Teori Informacji}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 3}
+
+Który z kanałów ma większą przepustowość? 
+
+$$ \begin{pmatrix}
+0 & \frac{1}{3} & \frac{1}{3} & \frac{1}{3} \\
+\frac{1}{3} & 0 & \frac{1}{3} & \frac{1}{3} \\
+\frac{1}{3} & \frac{1}{3} & 0 & \frac{1}{3} \\
+\frac{1}{3} & \frac{1}{3} & \frac{1}{3} & 0 
+\end{pmatrix}  $$
+
+czy 
+
+$$ \begin{pmatrix}
+0 & \frac{1}{3} & \frac{1}{3} & \frac{1}{3} \\
+0 & 0 & \frac{1}{3} & \frac{2}{3} \\
+\frac{1}{3} & \frac{2}{3} & 0 & 0 \\
+\frac{1}{3} & \frac{1}{3} & \frac{1}{3} & 0 
+\end{pmatrix}  $$
+
+Policzmy przepustowość pierwszego kanału:
+
+Niech $X$ wejściem kanału, a $Y$ wyjściem.
+
+Chcemy znaleźć takie $X$, że $I(X;Y)$, maksymalne.
+
+$$I(X;Y) = H(Y) - H(Y|X)$$
+
+Jeśli znamy wejście to, łatwo policzyć entropie wyjscia, $H(Y|X) = \log_2(3)$.
+
+Teraz, ponieważ wiemy, że $\log(n)$ to górne ograniczenie entropi (dla zmiennej losowej na zbioże n elementowym) osiągane gdy zmienna losowa ma rozkład jednostajny, możemy tak dobrać $X$ by $H(Y)$ było maksymalne.
+
+Biorąc $X$ o rozkładzie jednostajnym uzyskujemy jednostajny rozkład $Y$.
+
+$$p(y_i) = \sum_{x_j} p(x_j) \cdot p(x_j, y_i) = 3 \cdot \frac{1}{3} \cdot \frac{1}{4} + 9\cdot \frac{1}{4} = \frac{1}{4}$$
+
+Czyli dla $X$ o rozkładzie jednostajnym pierwszy kanał osiąga maksymalną przepustowość, $\log_2(4)-\log_2(3) = 2 - \log_2(3)$.
+
+Sprawdźmy więc jaką przepustowość osiągnie drugi kanał na tym samym rozkładzie.
+
+Niech $Y'$ wyjściem drugiego kanału.
+
+$$I(X;Y') = H(X) - H(X|Y')$$
+
+$H(X) = 2$, $H(X|Y')$ rozpiszę z entropi warunkowej:
+
+$$ H(X|Y') = \sum_{y\in Y'} p(y) \cdot H(X|Y'=y)$$
+
+$$H(X|Y') = \frac{1}{4} \cdot \left( \log_2(2) + \frac{1}{2}(\log_2(2) + \log_2(4)) + \log_2(3) + \frac{1}{3}\log_2(3) + \frac{2}{3}\log_2(3/2) \right) = \frac{1}{2}\log_2(3)+\frac{11}{24}$$
+
+Sprawdzamy dla którego kanału wspólna informacja wejścia i wyjścia jest większa:
+
+$$2 - \log_2(3) \;\; ? \;\;  2 - \frac{1}{2}\log_2(3) - \frac{11}{24}$$
+
+$$ \frac{11}{24} \;\; ? \;\; \frac{1}{2}\log_2(3) $$
+
+$$ \frac{11}{12} \;\; ? \;\; \log_2(3) $$
+
+Tu już wiemy że lewa strona jest mniejsza (bo jest mniejsza od 1 a prawa większa od 1).
+
+czyli zachodzi
+
+$$I(X, Y) < I(X, Y')$$
+
+a ponieważ dla $X$ pierwszy kanał osiągał maksymalną przepustowość, to na pewno drugi kanał ma większą przepustowość od pierwszego (potencjalnie jeszcze lepszą niż dla tego rozkładu).
+
+
+
+
+
+
+
+
+\end{document}

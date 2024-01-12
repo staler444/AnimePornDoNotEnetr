@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath,suetterl,graphicx,mathrsfs}
+\usepackage[a4paper, total={6.2in, 10in}]{geometry}
+\usepackage[skip=4pt plus1pt, indent=0pt]{parskip}
+
+\title{Kolokwium z Teori Informacji}
+\author{Bartosz Kucypera}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zadanie 2}
+
+\subsection*{a)}
+Dowieść, że dla zmiennych losowych $X,Y,Z$ i funckji $f,g$, zachodzi
+
+$$I(f(X);g(Y)|Z) \le I(X;Y|Z)$$
+
+Zauważmy, że możemy stworzyć pomocniczą zmienną losową $A = Y|Z$, i zapisać
+
+$$I(X;Y|Z) = I(X;A)$$
+
+Wtedy z "twierdzenia o przetwarzaniu informacji" mamy:
+
+$$I(X;A) \ge I(f(X);A) = I(f(X);Y|Z)$$
+
+teraz, niech $B = f(X)|Z$
+
+$$ I(f(X);Y|Z) = I(Y;f(X)|Z) = I(Y;B) \ge I(g(Y);B) = I(g(Y);f(X))$$
+
+czyli zachodzi
+
+$$ I(f(X);g(Y)|Z) \le I(X;Y|Z) $$
+
+\subsection*{b)}
+Podać przykład, kiedy 
+
+$$ I(f(X);g(Y)|Z) < I(f(X);Y|Z) < I(X;Y|Z) $$
+
+Niech $X$ zwraca ciąg 42 bitów z rozkładem jednostajnym.
+
+Niech $Y$ zwraca ciąg 42 bitów z rozkładem jednostajnym.
+
+Niech $Z= X\oplus Y$ (xor).
+
+Niech $f((b_1, b_2, \cdots, b_n)) = (0, b_2, b_3, \cdots b_n)$ (zeruje pierwszy bit).
+
+Niech $g((b_1, \cdots, b_n)) = (0, \cdots, 0)$ (zeruje wszystkie bity).
+
+\subsection*{Pierwsza nierówność}
+
+$$I(f(X);Y|Z) < I(X;Y|Z)$$
+
+$$H(f(X)|Z) - H(f(X)|Y,Z) < H(X|Z) - H(X|Y,Z)$$
+
+Zauważmy, że $H(X|Y,Z) = 0$ oraz $H(f(X)|Y,Z) = 0$ (znając $Y$ i $Z$ znamy $X$ oraz $f(X)$).
+
+$$H(f(X)|Z) < H(X|Z)$$
+
+Teraz zauważmy, że znajomośc $Z$ w żadne sposób nie ogranicza $X$ czyli $H(X|Z) = H(X)$,
+$H(f(X)|Z) = H(f(X))$.
+
+$$H(f(X)) < H(X)$$
+co jest oczywiście prawdą ($f(X)$ traci możliwość wyboru pierwszego bitu).
+
+Czyli faktycznie pierwsza nierówność zachodzi.
+
+\subsection*{Druga nierówność}
+
+$$I(f(X);g(Y)|Z) < I(f(X);Y|Z)$$
+
+Mamy 
+
+$$I(f(X);g(Y)|Z) = H(f(X)|Z) - H(f(X)|Z,g(Y))$$
+
+Skoro $g$ zawsze zwraca ciąg samych zer to $H(f(X)|Z,g(Y)) = H(f(X)|Z)$
+
+Czyli 
+$$I(f(X);g(Y)|Z) = 0$$
+
+Natomiast prawa strona:
+
+$$I(f(X);Y|Z) = H(f(X)|Z) - H(f(X)|Y,Z) = H(f(X)|Z) = H(f(X)) > 0$$
+
+czyli nierównośc zachodzi.
+
+\end{document}:
